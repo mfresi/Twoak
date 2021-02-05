@@ -53,13 +53,24 @@ class user
             echo "Identifiant ou mot de passe incorrect ! ";
         }
     }
+
+    //---------Profil---------DANEL
+
     //Faire une bio
-    public function  setBio()
+    public function  setBio($newBio,$user,$bdd)
     {
+        $sql = 'UPDATE `user` SET `user`.`user_bio`='.$newBio.' WHERE `user`.`user_pseudo`='.$user.';';
+        $bdd->query($sql);
     }
     //Voir la bio
-    public function  getBio()
+    public function  getBio($user,$bdd)
     {
+        $sql    = 'SELECT `user_bio` FROM `user` WHERE `user`.`user_login` = '.$user.';';
+        
+        $reqBio = $bdd->query($sql);
+        $bio    =  $reqBio->fetch();
+
+        return $bio['user_bio'];
     }
     //Ajouter l'avatar
     public function setAvatar()
