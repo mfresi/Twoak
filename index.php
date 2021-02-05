@@ -1,5 +1,6 @@
-<?php session_start(); ?>
-<?php require("Class/ClassUser.php"); ?>
+<?php session_start();?>
+<?php include "Class/ClassUser.php"; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +28,7 @@
 
 <body>
     <?php   //si la session n'est pas ouverte on affcihe le formulaire de connexion
-    if (!empty($_SESSION['Login'])) {
+    if (!isset($_SESSION['login'])) {
     ?>
         <div class="limiter">
             <div class="container-login100">
@@ -42,7 +43,7 @@
                         </span>
 
                         <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                            <input class="input100" type="text" name="login" placeholder="Utilisateur">
+                            <input class="input100" type="text" name="login" placeholder="Utilisateur" value = "Twoak">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                                 <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -50,7 +51,7 @@
                         </div>
 
                         <div class="wrap-input100 validate-input" data-validate="Password is required">
-                            <input class="input100" type="password" name="password" placeholder="Mot de passe">
+                            <input class="input100" type="password" name="password" placeholder="Mot de passe" value= "1234">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                                 <i class="fa fa-lock" aria-hidden="true"></i>
@@ -60,7 +61,8 @@
                         if (isset($_POST['login']) && isset($_POST['password'])) {
                             //Le mot de passe est correct, on crée l'objet user
                             $coUser = new user();
-                            // Méthode de connexion dans class user
+                            // Méthode de connexion dans class user*
+                            
                             $base = $coUser->Connectbdd();
                             //  Méthode de autorisation dans class user 
                             $coUser->Connexion($_POST['login'], $_POST['password'], $base);
@@ -95,6 +97,8 @@
     } else {
         ?>
         <h1>coucou</h1>
+
+        <a class="btn btn-danger" href="deconnexion.php">Déconnexion</a>
         <?php
     }
     ?>

@@ -33,16 +33,15 @@ class user
         // Vérifie si l'identifiant et le mdp sont les même que dans la bdd
         $request = $bdd->prepare("SELECT * FROM User WHERE user_login = ? AND user_password = ?");
         // mise dans un tableau
-        $request->execute(array($login, $password));
+        $request->execute([$login, $password]);
         $userexist = $request->rowCount();
         if ($userexist == 1) {
-
             $userinfo = $request->fetch();
             // Verification avec la base de données
             $_SESSION['login'] = $userinfo['user_login'];
-            echo $_SESSION['login'];
+           
 ?>
-            <!--<meta http-equiv="refresh" content="0.01;URL=index.php">-->
+            <meta http-equiv="refresh" content="0.01;URL=index.php">
 <?php
         } else {
 
