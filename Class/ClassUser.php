@@ -25,8 +25,13 @@ class user
         }
         return $bdd;
     }
-    public function inscription()
+    public function inscription($login, $password, $bdd)
     {
+        try {
+            $bdd->query('INSERT INTO `user`(`login`, `password`) VALUES ("' . $login . '","' . $password . '")');
+        } catch (Exception $erreur) {
+            echo 'Erreur : ' . $erreur->getMessage();
+        }
     }
     public function connexion($login, $password, $bdd)
     {  // Romain FLEMAL
