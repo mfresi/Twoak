@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
-    <title>Twoak</title>
+    <title>Login</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -36,7 +36,7 @@
                             Bienvenue sur Twoak
                         </span>
 
-                        <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <div class="wrap-input100 validate-input" data-validate="Saissisez votre login">
                             <input class="input100" type="text" name="login" placeholder="Utilisateur" value = "Twoak">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
@@ -44,8 +44,8 @@
                             </span>
                         </div>
 
-                        <div class="wrap-input100 validate-input" data-validate="Password is required">
-                            <input class="input100" type="password" name="password" placeholder="Mot de passe" value= "1234">
+                        <div class="wrap-input100 validate-input" data-validate="Saissisez votre password">
+                            <input class="input100" type="password" name="password" placeholder="Mot de passe" >
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                                 <i class="fa fa-lock" aria-hidden="true"></i>

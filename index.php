@@ -2,7 +2,7 @@
 <?php include "Class/ClassUser.php"; ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <title>Twoak</title>

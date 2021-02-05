@@ -1,4 +1,4 @@
-<?php session_start();
+<?php
 
 class user
 {
@@ -15,16 +15,18 @@ class user
     public function __construct()
     {
     }
-
-    public function connectbdd() // Romain FLEMAL
+    // Romain FLEMAL
+    //Fonction de connexion avec la BDD
+    public function connectbdd() 
     {
         try {
-            $bdd = new PDO('mysql:host=192.168.65.245; dbname=TWOAK; charset=utf8', 'Twoak', 'Twoak');
+            $bdd = new PDO('mysql:host=localhost; dbname=TWOAK; charset=utf8', 'root', 'root');
         } catch (Exception $erreur) {
             echo 'Erreur : ' . $erreur->getMessage();
         }
         return $bdd;
     }
+    //Fonction d'inscription a Twoak
     public function inscription($login, $password, $bdd)
     {
         try {
@@ -33,6 +35,7 @@ class user
             echo 'Erreur : ' . $erreur->getMessage();
         }
     }
+    //Fonction de connexion a Twoak
     public function connexion($login, $password, $bdd)
     {  // Romain FLEMAL
         // Vérifie si l'identifiant et le mdp sont les même que dans la bdd
@@ -45,16 +48,16 @@ class user
             // Verification avec la base de données
             $_SESSION['login'] = $userinfo['user_login'];
            
-?>
+        ?>
             <meta http-equiv="refresh" content="0.01;URL=index.php">
-<?php
+        <?php
         } else {
 
             echo "Identifiant ou mot de passe incorrect ! ";
         }
     }
 
-    //---------Profil---------DANEL
+    //NATHAN DANEL
 
     //Faire une bio
     public function  setBio($newBio,$user,$bdd)
