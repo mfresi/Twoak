@@ -7,10 +7,10 @@ class user
     private $_login;
     private $_password;
     private $_administrateur;
-    private $pseudo;
-    private $mail;
-    private $follower;
-    private $sexe;
+    private $_pseudo;
+    private $_mail;
+    private $_follower;
+    private $_sexe;
 
     public function __construct()
     {
