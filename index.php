@@ -31,7 +31,7 @@
     if (!isset($_SESSION['login'])) {
         include("login.php");
     } else {
-       include("index2.php");
+       include("home.php");
     }
     ?>
 

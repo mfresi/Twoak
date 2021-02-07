@@ -283,7 +283,7 @@
 										<ul class="naves">
 											<li>
 												<i class="ti-files"></i>
-												<a href="fav-page.html" title="">Ma pages</a>
+												<a href="profil.php" title="">Ma pages</a>
 											</li>
 											<li>
 												<i class="ti-user"></i>
