@@ -1,0 +1,12 @@
+//TODO
+
+1. Gérer les PB lié a la bdd (inscription + personnalisation du profil)
+2. post des msg
+3. liker
+4. partager
+5. espace membre
+6. footer et design (roro)
+7. Notification 
+8. message privé ?
+9. sécurité
+10. petite fonctionnalité ino
