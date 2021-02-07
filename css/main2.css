@@ -397,6 +397,10 @@ input[type="date" i] {
    #FORM
    ========================================================================== */
 
+.text-center {
+    text-align: center!important
+}
+
 input {
     outline: none;
     margin: 0;

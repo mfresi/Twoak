@@ -2,11 +2,13 @@
 
 class user
 {
+    private $_idUser;
     private $_nom;
     private $_prenom;
+    private $_type;
     private $_login;
     private $_password;
-    private $_administrateur;
+    private $_date;
     private $_pseudo;
     private $_mail;
     private $_follower;
@@ -20,17 +22,17 @@ class user
     public function connectbdd() 
     {
         try {
-            $bdd = new PDO('mysql:host=localhost; dbname=TWOAK; charset=utf8', 'root', 'root');
+            $bdd = new PDO('mysql:host=localhost; dbname=twoak; charset=utf8', 'root', 'root');
         } catch (Exception $erreur) {
             echo 'Erreur : ' . $erreur->getMessage();
         }
         return $bdd;
     }
     //Fonction d'inscription a Twoak
-    public function inscription($login, $password, $bdd)
+    public function inscription($nom, $prenom, $mail, $date, $password, $bdd)
     {
         try {
-            $bdd->query('INSERT INTO `user`(`login`, `password`) VALUES ("' . $login . '","' . $password . '")');
+            $bdd->query('INSERT INTO `user`(`user_nom`,`user_prenom`,`user_dateNaissance`,`user_mail`, `user_password`) VALUES ("' . $nom . '","' . $prenom . '","' . $date . '","' . $mail . '","' . $password . '")');
         } catch (Exception $erreur) {
             echo 'Erreur : ' . $erreur->getMessage();
         }

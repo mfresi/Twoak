@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+    <link rel="icon" href="images/fav.png" type="image/png" sizes="16x16">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
     <!--===============================================================================================-->
@@ -75,7 +75,6 @@
                                 Utilisateur / Mot de passe ?
                             </a>
                         </div>
-
                         <div class="text-center p-t-136">
                             <a class="txt2" href="inscription.php">
                                 Crée votre compte

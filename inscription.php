@@ -1,3 +1,5 @@
+<?php session_start();?>
+<?php include "Class/ClassUser.php"; ?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -8,6 +10,7 @@
     <meta name="description" content="Colorlib Templates">
     <meta name="author" content="Colorlib">
     <meta name="keywords" content="Colorlib Templates">
+    <link rel="icon" href="images/fav.png" type="image/png" sizes="16x16">
 
     <!-- Title Page-->
     <title>Insciption</title>
@@ -25,7 +28,7 @@
     <!-- Main CSS-->
     <link href="css/main.css" rel="stylesheet" media="all">
     <link href="css/main2.css" rel="stylesheet" media="all">
-    
+
 </head>
 
 <body>
@@ -61,7 +64,7 @@
                             <div class="col-2">
                                 <div class="input-group">
                                     <div class="input-group-icon validate-input" data-validate="Ce champ est obligatoire">
-                                        <input class="input100" type="text" name="email" placeholder="Mail">
+                                        <input class="input100" type="text" name="mail" placeholder="Mail">
                                         <span class="focus-input100"></span>
                                         <span class="symbol-input100">
                                             <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -102,6 +105,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!--
                         <div class="col-2">
                             <div class="input-group">
                                 <label class="label">Sexe</label>
@@ -117,17 +121,38 @@
                                 </div>
                             </div>
                         </div>
+                        -->
+                        <?php // Début du PHP pour l'inscriptuion
+                        if (empty($_POST['nom']) && empty($_POST['prenom']) && empty($_POST['mail']) && empty($_POST['date']) && empty($_POST['password']) && empty($_POST['password2'])) {
+                        } else if ($_POST['password'] == $_POST['password2']) {
+                            $user = new User(); //les mots de passe sont corrects, on crée l'objet user
+                            $base = $user->connectbdd();
+                            $user->inscription($_POST['nom'], $_POST['prenom'], $_POST['mail'],$_POST['date'], $_POST['password'] , $base);
+                            //echo "".$_POST['nom']. "" . $_POST['prenom'] . "".$_POST['mail']. "".$_POST['date']. "".$_POST['password']. "";
+                            echo " <p>L'équipe Twoak vous remercie de votre inscription !";
+                        } else {
+                            echo "Les mots de passe ne correspondent pas";
+                        }
+                        ?>
+                        <!-- fin php insciption -->
                         <div class="container-login100-form-btn">
                             <button class="login100-form-btn">
                                 inscription
                             </button>
                         </div>
-
+                        <br>
+                        <div class="text-center p-t-136 ">
+                            <a class="txt2" href="index.php">
+                                Vous avez déja un compte
+                                <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                            </a>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
 
     <!-- Jquery JS-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -141,7 +166,6 @@
 
 
 </body>
-<!-- This templates was made by Colorlib (https://colorlib.com) -->
+
 
 </html>
-<!-- end document-->
