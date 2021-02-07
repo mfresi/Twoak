@@ -9,4 +9,4 @@
 7. Notification 
 8. message privé ?
 9. sécurité
-10. petite fonctionnalité ino
+10. petite fonctionnalité ino (Mdp oublier , envoie de mail?)

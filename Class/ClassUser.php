@@ -71,7 +71,6 @@ class user
     public function  getBio($user,$bdd)
     {
         $sql    = 'SELECT `user_bio` FROM `user` WHERE `user`.`user_login` = '.$user.';';
-        
         $reqBio = $bdd->query($sql);
         $bio    =  $reqBio->fetch();
 

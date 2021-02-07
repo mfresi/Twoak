@@ -62,4 +62,14 @@ class Twoak
     {
         return $this->_photo;
     }
+    //Ajouter un retwoak
+    public function setRetwoak($newretwoak)
+    {
+        $this->_photo = $newretwoak;
+    }
+    //Voir le retwoak
+    public function getRetwoak()
+    {
+        return $this->_retwoak;
+    }
 }

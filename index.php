@@ -28,10 +28,12 @@
 
 <body>
     <?php   //si la session n'est pas ouverte on affcihe le formulaire de connexion
-    if (!isset($_SESSION['login'])) {
+    if (!isset($_SESSION['login'])) 
+    {
         include("login.php");
-    } else {
-       include("home.php");
+    } else 
+    {
+        include("home.php");
     }
     ?>
 
