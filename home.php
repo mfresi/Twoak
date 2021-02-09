@@ -1,8 +1,19 @@
-<?php include "database.php";
+<?php 
+include "database.php";
+include "Class/classTwoak.php";
+
 global $bdd;
 $selectTwoak = $bdd->prepare('SELECT Twoak.ID_Twoak, Twoak.Twoak_texte, Twoak.Twoak_published, User.user_login FROM `Twoak`, User WHERE Twoak.ID_User = User.ID_User ORDER BY `Twoak_published` DESC');
 $selectTwoak->execute();
 $Twoakexist = $selectTwoak->rowCount();
+
+if (isset($_POST['dataText'])) {
+	$twoak = new Twoak();
+	$twoak->addTwoak($_SESSION['id'], $_POST['dataText'], $bdd);
+	echo "Twoak ajouté avec succès";
+}
+
+$friend = new User();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -322,8 +333,8 @@ $Twoakexist = $selectTwoak->rowCount();
 												<img src="images/resources/admin2.jpg" alt="">
 											</figure>
 											<div class="newpst-input">
-												<form method="post">
-													<textarea rows="2" placeholder="Que voulez vous dire ? "></textarea>
+												<form method="POST">
+													<textarea name="dataText" rows="2" placeholder="Que voulez vous dire ? "></textarea>
 													<div class="attachments">
 														<ul>
 															<li>
@@ -360,47 +371,47 @@ $Twoakexist = $selectTwoak->rowCount();
 										</div>
 									</div><!-- add post new box -->
 									<div class="loadMore">
-										<?php 
-											while ($TwoakSelect = $selectTwoak->fetch()) {
+										<?php
+										while ($TwoakSelect = $selectTwoak->fetch()) {
 										?>
-												<div class="central-meta item">
-													<div class="user-post">
-														<div class="friend-info">
-															<!--<figure>
+											<div class="central-meta item">
+												<div class="user-post">
+													<div class="friend-info">
+														<!--<figure>
 												<img src="images/resources/friend-avatar10.jpg" alt="">
 											</figure>-->
-															<div class="friend-name">
-																<ins><a href="time-line.html" title=""><?php echo $TwoakSelect['user_login']; ?></a></ins>
-																<span>published: <?php echo $TwoakSelect['Twoak_published']; ?></span>
+														<div class="friend-name">
+															<ins><a href="time-line.html" title=""><?php echo $TwoakSelect['user_login']; ?></a></ins>
+															<span>publié : <?php echo $TwoakSelect['Twoak_published']; ?></span>
+														</div>
+														<div class="post-meta">
+															<!--<img src="images/resources/user-post.jpg" alt=""> -->
+
+															<div class="description">
+																<p>
+																	<?php echo $TwoakSelect['Twoak_texte']; ?>
+																</p>
 															</div>
-															<div class="post-meta">
-																<!--<img src="images/resources/user-post.jpg" alt=""> -->
+															<div class="we-video-info">
+																<ul>
+																	<li>
+																		<span class="comment" data-toggle="tooltip" title="Comments">
+																			<i class="fa fa-comments-o"></i>
+																			<ins><?php echo "0"; ?></ins>
+																		</span>
+																	</li>
+																	<li>
+																		<span class="like" data-toggle="tooltip" title="like">
+																			<i class="ti-heart"></i>
+																			<ins><?php echo "0"; ?></ins>
+																		</span>
+																	</li>
 
-																<div class="description">
-																	<p>
-																		<?php echo $TwoakSelect['Twoak_texte']; ?>
-																	</p>
-																</div>
-																<div class="we-video-info">
-																	<ul>
-																		<li>
-																			<span class="comment" data-toggle="tooltip" title="Comments">
-																				<i class="fa fa-comments-o"></i>
-																				<ins><?php echo "0"; ?></ins>
-																			</span>
-																		</li>
-																		<li>
-																			<span class="like" data-toggle="tooltip" title="like">
-																				<i class="ti-heart"></i>
-																				<ins><?php echo "0"; ?></ins>
-																			</span>
-																		</li>
-
-																	</ul>
-																</div>
+																</ul>
 															</div>
 														</div>
-														<!--
+													</div>
+													<!--
 										<div class="coment-area">
 											<ul class="we-comet">
 												<li>
@@ -492,8 +503,8 @@ $Twoakexist = $selectTwoak->rowCount();
 												</li>
 											</ul>
 										</div> -->
-													</div>
 												</div>
+											</div>
 										<?php }
 										?>
 									</div>
@@ -507,79 +518,14 @@ $Twoakexist = $selectTwoak->rowCount();
 											<div id="searchDir"></div>
 											<ul id="people-list" class="friendz-list">
 												<li>
-													<figure>
-														<img src="images/resources/friend-avatar.jpg" alt="">
-														<span class="status f-online"></span>
-													</figure>
 													<div class="friendz-meta">
-														<a href="time-line.html">bucky barnes</a>
-														<i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a0d7c9ced4c5d2d3cfccc4c5d2e0c7cdc1c9cc8ec3cfcd">[email&#160;protected]</a></i>
+													<!-- TODO Renvoyer sur la page de profil de l'utilisateur sur lequel on click -->
+													<?php 
+														$friend->getUsers($bdd);	
+													?>
 													</div>
 												</li>
-												
 											</ul>
-											<div class="chat-box">
-												<div class="chat-head">
-													<span class="status f-online"></span>
-													<h6>Bucky Barnes</h6>
-													<div class="more">
-														<span><i class="ti-more-alt"></i></span>
-														<span class="close-mesage"><i class="ti-close"></i></span>
-													</div>
-												</div>
-												<div class="chat-list">
-													<ul>
-														<li class="me">
-															<div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
-															<div class="notification-event">
-																<span class="chat-message-item">
-																	Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
-																</span>
-																<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
-															</div>
-														</li>
-														<li class="you">
-															<div class="chat-thumb"><img src="images/resources/chatlist2.jpg" alt=""></div>
-															<div class="notification-event">
-																<span class="chat-message-item">
-																	Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
-																</span>
-																<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
-															</div>
-														</li>
-														<li class="me">
-															<div class="chat-thumb"><img src="images/resources/chatlist1.jpg" alt=""></div>
-															<div class="notification-event">
-																<span class="chat-message-item">
-																	Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
-																</span>
-																<span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
-															</div>
-														</li>
-													</ul>
-													<form class="text-box">
-														<textarea placeholder="Post enter to post..."></textarea>
-														<div class="add-smiles">
-															<span title="add icon" class="em em-expressionless"></span>
-														</div>
-														<div class="smiles-bunch">
-															<i class="em em---1"></i>
-															<i class="em em-smiley"></i>
-															<i class="em em-anguished"></i>
-															<i class="em em-laughing"></i>
-															<i class="em em-angry"></i>
-															<i class="em em-astonished"></i>
-															<i class="em em-blush"></i>
-															<i class="em em-disappointed"></i>
-															<i class="em em-worried"></i>
-															<i class="em em-kissing_heart"></i>
-															<i class="em em-rage"></i>
-															<i class="em em-stuck_out_tongue"></i>
-														</div>
-														<button type="submit"></button>
-													</form>
-												</div>
-											</div>
 										</div><!-- friends list sidebar -->
 									</aside>
 								</div><!-- sidebar -->

@@ -1,4 +1,4 @@
-<?php session_start();?>
+<?php session_start(); ?>
 <?php include "Class/ClassUser.php"; ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -41,8 +41,8 @@
                     <form method="POST">
                         <div class="row row-space">
                             <div class="col-2">
-                                <div class="wrap-input100 validate-input" data-validate="Ce champ est obligatoire" >
-                                    <input class="input100" type="text" name="nom" placeholder="Nom" >
+                                <div class="wrap-input100 validate-input" data-validate="Ce champ est obligatoire">
+                                    <input class="input100" type="text" name="nom" placeholder="Nom">
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
                                         <i class="fa fa-user" aria-hidden="true"></i>
@@ -50,8 +50,8 @@
                                 </div>
                             </div>
                             <div class="col-2">
-                                <div class=" wrap-input100 validate-input" data-validate="Ce champ est obligatoire" >
-                                    <input class="input100" type="text" name="prenom" placeholder="Prénom" >
+                                <div class=" wrap-input100 validate-input" data-validate="Ce champ est obligatoire">
+                                    <input class="input100" type="text" name="prenom" placeholder="Prénom">
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
                                         <i class="fa fa-user" aria-hidden="true"></i>
@@ -62,8 +62,8 @@
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group ">
-                                    <div class="input-group-icon validate-input" data-validate="Ce champ est obligatoire" require >
-                                        <input class="input100" type="text" name="mail" placeholder="Mail" >
+                                    <div class="input-group-icon validate-input" data-validate="Ce champ est obligatoire" require>
+                                        <input class="input100" type="text" name="mail" placeholder="Mail">
                                         <span class="focus-input100"></span>
                                         <span class="symbol-input100">
                                             <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -74,7 +74,7 @@
                             <div class="col-2">
                                 <div class="input-group validate-input" data-validate="Ce champ est obligatoire">
                                     <div class="input-group-icon">
-                                        <input class="input100 js-datepicker" name="date" placeholder="Date de naissance" >
+                                        <input class="input100 js-datepicker" name="date" placeholder="Date de naissance">
                                         <span class="focus-input100"></span>
                                         <span class="symbol-input100">
                                             <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -87,7 +87,7 @@
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group validate-input" data-validate="Ce champ est obligatoire">
-                                    <input class="input100" type="password" name="password" placeholder="Mot de passe" >
+                                    <input class="input100" type="password" name="password" placeholder="Mot de passe">
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
                                         <i class="fa fa-lock" aria-hidden="true"></i>
@@ -96,7 +96,7 @@
                             </div>
                             <div class="col-2">
                                 <div class="input-group validate-input" data-validate="Ce champ est obligatoire">
-                                    <input class="input100" type="password" name="password2" placeholder="Mot de passe" >
+                                    <input class="input100" type="password" name="password2" placeholder="Mot de passe">
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
                                         <i class="fa fa-lock" aria-hidden="true"></i>
@@ -104,7 +104,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!--
                         <div class="col-2">
                             <div class="input-group">
@@ -127,8 +127,7 @@
                         } else if ($_POST['password'] == $_POST['password2']) {
                             $user = new User(); //les mots de passe sont corrects, on crée l'objet user
                             $base = $user->connectbdd();
-                            $user->inscription($_POST['nom'], $_POST['prenom'], $_POST['mail'],$_POST['date'], $_POST['password'] , $base);
-                            //echo "".$_POST['nom']. "" . $_POST['prenom'] . "".$_POST['mail']. "".$_POST['date']. "".$_POST['password']. "";
+                            echo $user->inscription($_POST['nom'], $_POST['prenom'], $_POST['mail'], $_POST['date'], $_POST['password'], $base);
                             echo " <p>L'équipe Twoak vous remercie de votre inscription !";
                         } else {
                             echo "Les mots de passe ne correspondent pas";

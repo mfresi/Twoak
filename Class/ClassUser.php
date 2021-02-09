@@ -49,7 +49,7 @@ class user
             $userinfo = $request->fetch();
             // Verification avec la base de données
             $_SESSION['login'] = $userinfo['user_login'];
-           
+            $_SESSION['id'] = $userinfo['ID_User']
         ?>
             <meta http-equiv="refresh" content="0.01;URL=index.php">
         <?php
@@ -96,5 +96,14 @@ class user
     public function sendMessage($dest,$message,$bdd)
     {
 
+    }
+
+    public function getUsers($bdd)
+    {
+        $request = $bdd->query('SELECT user_login FROM User');
+        while ($tabFriends = $request->fetch())
+        {
+            echo "<a href=''>". $tabFriends['user_login'] ."</a>";
+        }
     }
 }
