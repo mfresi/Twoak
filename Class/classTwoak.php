@@ -2,74 +2,59 @@
 
 class Twoak
 {
-    private $_comment;
-    private $_like;
-    private $_retwoak;
-    private $_photo;
+    private $_id;
     private $_twoak;
-    private $_share;
+    private $_published;
+    private $_retwoak;
+    private $_commentaire;
+    private $_user;
 
-    public function __construct()
+    public function __construct($id, $twoak, $published, $retwoak, $commentaire, $user)
     {
+        $this->_id = $id;
+        $this->_twoak = $twoak;
+        $this->_published = $published;
+        $this->_retwoak = $retwoak;
+        $this->_commentaire =$commentaire;
+        $this->_user = $user;
     }
-    //Faire un twoak
-    public function setTwoak($newTwoak)
-    {
-        $this->_twoak = $newTwoak;
+
+    public function setId(){
+        return $this->_id;
     }
-    //Voir le twoak
-    public function getTwoak()
-    {
+    public function setTwoak(){
         return $this->_twoak;
     }
-    //Commenter un twoak
-    public function setComment($newComment)
-    {
-        $this->_comment = $newComment;
+    public function setPublished(){
+        return $this->_published;
     }
-    //Voir le commentaire du twoak
-    public function getComment()
-    {
-        return $this->_comment;
-    }
-    //Liker un twoak
-    public function setLike($newlike)
-    {
-        $this->_like = $newlike;
-    }
-    //Voir qui a like le twoak
-    public function getLike()
-    {
-        return $this->_like;
-    }
-    //Partager le twoak
-    public function setShare($newshare)
-    {
-        $this->_share = $newshare;
-    }
-    //Voir qui a partagé le twoak
-    public function getShare()
-    {
-        return $this->_share;
-    }
-    //Ajouter une photo dans le twoak
-    public function setPhoto($newphoto)
-    {
-        $this->_photo = $newphoto;
-    }
-    //Voir la photo du twoak
-    public function getPhoto()
-    {
-        return $this->_photo;
-    }
-    //Ajouter un retwoak
-    public function setRetwoak($newretwoak)
-    {
-        $this->_photo = $newretwoak;
-    }
-    //Voir le retwoak
-    public function getRetwoak()
-    {
+    public function setRetwoak(){
         return $this->_retwoak;
     }
+    public function setCommentaire(){
+        return $this->_commentaire;
+    }
+    public function setUser(){
+        return $this->_user;
+    }
+
+    public function getId(){
+        return $this->_id;
+    }
+    public function getTwoak(){
+        return $this->_twoak;
+    }
+    public function getPublished(){
+        return $this->_published;
+    }
+    public function getRetwoak(){
+        return $this->_retwoak;
+    }
+    public function getCommentaire(){
+        return $this->_commentaire;
+    }
+    public function getUser(){
+        return $this->_user;
+    }
+  
 }
