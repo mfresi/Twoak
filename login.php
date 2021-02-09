@@ -37,7 +37,7 @@
                         </span>
 
                         <div class="wrap-input100 validate-input" data-validate="Saissisez votre login">
-                            <input class="input100" type="text" name="login" placeholder="Utilisateur" value = "Twoak">
+                            <input class="input100" type="text" name="login" placeholder="Utilisateur">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                                 <i class="fa fa-envelope" aria-hidden="true"></i>
