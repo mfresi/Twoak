@@ -13,7 +13,7 @@ if (isset($_POST['dataText'])) {
 	echo "Twoak ajouté avec succès";
 }
 
-$friend = new User();
+$user = new User();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -133,8 +133,9 @@ $friend = new User();
 						<a href="#" title="Home" data-ripple=""><i class="ti-search"></i></a>
 						<div class="searched">
 							<form method="post" class="form-search">
-								<input type="text" placeholder="Search Friend">
+								<input type="text" placeholder="Rechercher un utilisateur">
 								<button data-ripple><i class="ti-search"></i></button>
+								<?php $user->getAllUsers($bdd) ?>
 							</form>
 						</div>
 					</li>
@@ -511,8 +512,6 @@ $friend = new User();
 								</div><!-- centerl meta -->
 								<div class="col-lg-3">
 									<aside class="sidebar static">
-
-
 										<div class="widget friend-list stick-widget">
 											<h4 class="widget-title">Amis</h4>
 											<div id="searchDir"></div>
@@ -521,7 +520,7 @@ $friend = new User();
 													<div class="friendz-meta">
 													<!-- TODO Renvoyer sur la page de profil de l'utilisateur sur lequel on click -->
 													<?php 
-														$friend->getUsers($bdd);	
+														$user->getFriends($_SESSION['id'], $bdd);	
 													?>
 													</div>
 												</li>

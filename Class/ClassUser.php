@@ -98,12 +98,21 @@ class user
 
     }
 
-    public function getUsers($bdd)
+    public function getFriends($idUser, $bdd)
+    {
+        $request = $bdd->query('SELECT User.user_login FROM Follow, User WHERE Follow.Fol_ID_Follower = User.ID_User AND Follow.Fol_ID_Owner = '. $idUser .'');
+        while ($tabFriends = $request->fetch())
+        {
+            echo "<a href=''>". $tabFriends['user_login'] ."</a>";
+        }
+    }
+
+    public function getAllUsers($bdd)
     {
         $request = $bdd->query('SELECT user_login FROM User');
         while ($tabFriends = $request->fetch())
         {
-            echo "<a href=''>". $tabFriends['user_login'] ."</a>";
+            echo "<aside class='sidebar static'><a href=''>". $tabFriends['user_login'] ."</a></aside>";
         }
     }
 }
