@@ -1,6 +1,6 @@
 <?php
 
-class user
+class userTest
 {
     private $_idUser;
     private $_nom;
@@ -22,7 +22,7 @@ class user
     public function connectbdd() 
     {
         try {
-            $bdd = new PDO('mysql:host=192.168.65.245; dbname=TWOAK; charset=utf8', 'root', 'root');
+            $bdd = new PDO('mysql:host=localhost; dbname=twoak; charset=utf8', 'root', 'root');
         } catch (Exception $erreur) {
             echo 'Erreur : ' . $erreur->getMessage();
         }
@@ -32,7 +32,7 @@ class user
     public function inscription($nom, $prenom, $mail, $date, $password, $bdd)
     {
         try {
-            $bdd->query('INSERT INTO `User` (`ID_User`, `user_type`, `user_nom`, `user_prenom`, `user_password`, `user_dateNaissance`, `user_mail`, `user_avatar`, `user_banniere`, `user_bio`, `user_follower`, `user_sexe`) VALUES (NULL, 1, "'. $nom .'", "'. $prenom .'", "'. $password .'", "'. $date .'", "'. $mail .'", 0, 0, 0, 0, 0)');
+            $bdd->query('INSERT INTO `user`(`user_nom`,`user_prenom`,`user_dateNaissance`,`user_mail`, `user_password`) VALUES ("' . $nom . '","' . $prenom . '","' . $date . '","' . $mail . '","' . $password . '")');
         } catch (Exception $erreur) {
             echo 'Erreur : ' . $erreur->getMessage();
         }
@@ -41,9 +41,11 @@ class user
     public function connexion($login, $password, $bdd)
     {  // Romain FLEMAL
         // Vérifie si l'identifiant et le mdp sont les même que dans la bdd
-        $request = $bdd->prepare("SELECT * FROM User WHERE user_login = ? AND user_password = ?");
+        $request = $bdd->prepare("SELECT * FROM `User` WHERE `user_login` = ? AND `user_password` = ?");
         // mise dans un tableau
-        $request->execute([$login, $password]);
+        $loginVerif = SQLSanitizer($login);
+        $passwVerif = SQLSanitizer($password);
+        $request->execute([$loginVerif, $passwVerif]);
         $userexist = $request->rowCount();
         if ($userexist == 1) {
             $userinfo = $request->fetch();
@@ -91,12 +93,5 @@ class user
     //Voir l'avatar
     public function  getBanniere()
     {
-    }
-
-    //MATHIS CLERMONT
-
-    public function sendMessage($dest,$message,$bdd)
-    {
-
     }
 }
