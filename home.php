@@ -1,6 +1,6 @@
 <?php include "database.php";
 global $bdd;
-$selectTwoak = $bdd->prepare('SELECT Twoak.ID_Twoak, Twoak.twoak_texte, Twoak.twoak_published, Twoak.twoak_retwoak, Twoak.twoak_commentaire, User.user_login FROM `Twoak`, User WHERE Twoak.ID_User = User.ID_User ORDER BY `twoak_published` DESC');
+$selectTwoak = $bdd->prepare('SELECT Twoak.ID_Twoak, Twoak.Twoak_texte, Twoak.Twoak_published, User.user_login FROM `Twoak`, User WHERE Twoak.ID_User = User.ID_User ORDER BY `Twoak_published` DESC');
 $selectTwoak->execute();
 $Twoakexist = $selectTwoak->rowCount();
 ?>
@@ -360,8 +360,7 @@ $Twoakexist = $selectTwoak->rowCount();
 										</div>
 									</div><!-- add post new box -->
 									<div class="loadMore">
-										<?php if ($Twoakexist > 0) {
-
+										<?php 
 											while ($TwoakSelect = $selectTwoak->fetch()) {
 										?>
 												<div class="central-meta item">
@@ -372,14 +371,14 @@ $Twoakexist = $selectTwoak->rowCount();
 											</figure>-->
 															<div class="friend-name">
 																<ins><a href="time-line.html" title=""><?php echo $TwoakSelect['user_login']; ?></a></ins>
-																<span>published: <?php echo $TwoakSelect['twoak_published']; ?></span>
+																<span>published: <?php echo $TwoakSelect['Twoak_published']; ?></span>
 															</div>
 															<div class="post-meta">
 																<!--<img src="images/resources/user-post.jpg" alt=""> -->
 
 																<div class="description">
 																	<p>
-																		<?php echo $TwoakSelect['twoak_texte']; ?>
+																		<?php echo $TwoakSelect['Twoak_texte']; ?>
 																	</p>
 																</div>
 																<div class="we-video-info">
@@ -387,13 +386,13 @@ $Twoakexist = $selectTwoak->rowCount();
 																		<li>
 																			<span class="comment" data-toggle="tooltip" title="Comments">
 																				<i class="fa fa-comments-o"></i>
-																				<ins><?php echo $TwoakSelect['twoak_commentaire']; ?></ins>
+																				<ins><?php echo "0"; ?></ins>
 																			</span>
 																		</li>
 																		<li>
 																			<span class="like" data-toggle="tooltip" title="like">
 																				<i class="ti-heart"></i>
-																				<ins><?php echo $TwoakSelect['twoak_commentaire']; ?></ins>
+																				<ins><?php echo "0"; ?></ins>
 																			</span>
 																		</li>
 
@@ -496,7 +495,7 @@ $Twoakexist = $selectTwoak->rowCount();
 													</div>
 												</div>
 										<?php }
-										} ?>
+										?>
 									</div>
 								</div><!-- centerl meta -->
 								<div class="col-lg-3">
