@@ -59,8 +59,6 @@ class user
         }
     }
 
-    //NATHAN DANEL
-
     //Faire une bio
     public function  setBio($newBio,$user,$bdd)
     {
