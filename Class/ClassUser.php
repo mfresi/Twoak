@@ -22,7 +22,7 @@ class user
     public function connectbdd() 
     {
         try {
-            $bdd = new PDO('mysql:host=localhost; dbname=Twoak; charset=utf8', 'root', 'root');
+            $bdd = new PDO('mysql:host=192.168.65.245; dbname=TWOAK; charset=utf8', 'root', 'root');
         } catch (Exception $erreur) {
             echo 'Erreur : ' . $erreur->getMessage();
         }
@@ -32,7 +32,7 @@ class user
     public function inscription($nom, $prenom, $mail, $date, $password, $bdd)
     {
         try {
-            $bdd->query('INSERT INTO `user`(`user_nom`,`user_prenom`,`user_dateNaissance`,`user_mail`, `user_password`) VALUES ("' . $nom . '","' . $prenom . '","' . $date . '","' . $mail . '","' . $password . '")');
+            $bdd->query('INSERT INTO `User` (`ID_User`, `user_type`, `user_nom`, `user_prenom`, `user_password`, `user_dateNaissance`, `user_mail`, `user_avatar`, `user_banniere`, `user_bio`, `user_follower`, `user_sexe`) VALUES (NULL, 1, "'. $nom .'", "'. $prenom .'", "'. $password .'", "'. $date .'", "'. $mail .'", 0, 0, 0, 0, 0)');
         } catch (Exception $erreur) {
             echo 'Erreur : ' . $erreur->getMessage();
         }
@@ -89,5 +89,12 @@ class user
     //Voir l'avatar
     public function  getBanniere()
     {
+    }
+
+    //MATHIS CLERMONT
+
+    public function sendMessage($dest,$message,$bdd)
+    {
+
     }
 }

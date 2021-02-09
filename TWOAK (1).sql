@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost:3306
--- Généré le :  Mar 09 Février 2021 à 10:21
+-- Généré le :  Mar 09 Février 2021 à 11:01
 -- Version du serveur :  10.1.45-MariaDB-0+deb9u1
 -- Version de PHP :  7.0.33-0+deb9u8
 
@@ -27,21 +27,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `Commentaire` (
-  `ID_Commentaire` int(255) NOT NULL,
-  `ID_Twoak` int(25) NOT NULL,
-  `commentaire_contenu` text NOT NULL,
+  `ID_Commetaire` int(255) NOT NULL,
+  `ID_Twoak` int(255) NOT NULL,
+  `Commentaire_contenu` text NOT NULL,
   `ID_User` int(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `Follow`
---
-
-CREATE TABLE `Follow` (
-  `ID_Follower` int(255) NOT NULL,
-  `ID_Followed` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -104,8 +93,8 @@ CREATE TABLE `Retwoak` (
 
 CREATE TABLE `Twoak` (
   `ID_Twoak` int(255) NOT NULL,
-  `twoak_texte` varchar(255) NOT NULL,
-  `twoak_published` date NOT NULL,
+  `Twoak_texte` varchar(255) NOT NULL,
+  `Twoak_published` date NOT NULL,
   `ID_User` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -117,25 +106,25 @@ CREATE TABLE `Twoak` (
 
 CREATE TABLE `User` (
   `ID_User` int(255) NOT NULL,
-  `user_type` int(2) NOT NULL,
-  `user_nom` varchar(25) NOT NULL,
-  `user_prenom` varchar(25) NOT NULL,
-  `user_login` varchar(20) NOT NULL,
-  `user_password` varchar(20) NOT NULL,
-  `user_dateNaissance` varchar(10) NOT NULL,
-  `user_mail` varchar(25) NOT NULL,
-  `user_avatar` varchar(255) NOT NULL,
-  `user_banniere` varchar(255) NOT NULL,
-  `user_bio` text NOT NULL,
-  `user_follower` int(255) NOT NULL,
-  `user_sexe` int(2) NOT NULL
+  `User_type` int(2) NOT NULL,
+  `User_nom` varchar(25) NOT NULL,
+  `User_prenom` varchar(25) NOT NULL,
+  `User_login` varchar(20) NOT NULL,
+  `User_password` varchar(20) NOT NULL,
+  `User_dateNaissance` varchar(10) NOT NULL,
+  `User_mail` varchar(25) NOT NULL,
+  `User_avatar` varchar(255) NOT NULL,
+  `User_banniere` varchar(255) NOT NULL,
+  `User_bio` text NOT NULL,
+  `User_follower` int(255) NOT NULL,
+  `User_sexe` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contenu de la table `User`
 --
 
-INSERT INTO `User` (`ID_User`, `user_type`, `user_nom`, `user_prenom`, `user_login`, `user_password`, `user_dateNaissance`, `user_mail`, `user_avatar`, `user_banniere`, `user_bio`, `user_follower`, `user_sexe`) VALUES
+INSERT INTO `User` (`ID_User`, `User_type`, `User_nom`, `User_prenom`, `User_login`, `User_password`, `User_dateNaissance`, `User_mail`, `User_avatar`, `User_banniere`, `User_bio`, `User_follower`, `User_sexe`) VALUES
 (1, 0, '', '', 'Twoak', '1234', '0000-00-00', '', '', '', '', 0, 0),
 (2, 0, '', '', 'mattei', 'root', '0000-00-00', '', '', '', '', 0, 0),
 (3, 0, '', '', 'ProfilTest', 'passwd', '2021-02-04', 'test@test.fr', '', '', 'testSQL', 0, 0),
@@ -147,7 +136,8 @@ INSERT INTO `User` (`ID_User`, `user_type`, `user_nom`, `user_prenom`, `user_log
 (11, 1, 'test2', 'test6', 'mattei', 'tests', '0.00125000', 'test.test@gmail.com', '0', '0', '0', 0, 0),
 (12, 1, 'test2', 'test6', 'mattei', 'tests', '0.00125000', 'test.test@gmail.com', '0', '0', '0', 0, 0),
 (14, 1, 'langlace', 'julien', 'mattei', 'jllol', '30/12/1945', 'julien.langlace@gmail.com', '0', '0', '0', 0, 0),
-(15, 1, 'gremgrem', 'alex', '', 'grem', '15-02-1985', 'alex.gremont@gmail.com', '0', '0', '0', 0, 0);
+(15, 1, 'gremgrem', 'alex', '', 'grem', '15-02-1985', 'alex.gremont@gmail.com', '0', '0', '0', 0, 0),
+(16, 1, '', '', '', '', 'mattei', '', '0', '0', '0', 0, 0);
 
 --
 -- Index pour les tables exportées
@@ -157,14 +147,7 @@ INSERT INTO `User` (`ID_User`, `user_type`, `user_nom`, `user_prenom`, `user_log
 -- Index pour la table `Commentaire`
 --
 ALTER TABLE `Commentaire`
-  ADD PRIMARY KEY (`ID_Commentaire`),
-  ADD KEY `ID_twoak` (`ID_Twoak`);
-
---
--- Index pour la table `Follow`
---
-ALTER TABLE `Follow`
-  ADD PRIMARY KEY (`ID_Follower`,`ID_Followed`);
+  ADD PRIMARY KEY (`ID_Commetaire`);
 
 --
 -- Index pour la table `Loak`
@@ -194,8 +177,7 @@ ALTER TABLE `Retwoak`
 -- Index pour la table `Twoak`
 --
 ALTER TABLE `Twoak`
-  ADD PRIMARY KEY (`ID_Twoak`),
-  ADD KEY `ID_user` (`ID_User`);
+  ADD PRIMARY KEY (`ID_Twoak`);
 
 --
 -- Index pour la table `User`
@@ -211,7 +193,7 @@ ALTER TABLE `User`
 -- AUTO_INCREMENT pour la table `Commentaire`
 --
 ALTER TABLE `Commentaire`
-  MODIFY `ID_Commentaire` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Commetaire` int(255) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `Message`
 --
@@ -223,26 +205,15 @@ ALTER TABLE `Message`
 ALTER TABLE `Notification`
   MODIFY `ID_Notification` int(255) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT pour la table `Twoak`
+--
+ALTER TABLE `Twoak`
+  MODIFY `ID_Twoak` int(255) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT pour la table `User`
 --
 ALTER TABLE `User`
-  MODIFY `ID_User` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
---
--- Contraintes pour les tables exportées
---
-
---
--- Contraintes pour la table `Commentaire`
---
-ALTER TABLE `Commentaire`
-  ADD CONSTRAINT `Commentaire_ibfk_1` FOREIGN KEY (`ID_twoak`) REFERENCES `Twoak` (`ID_Twoak`);
-
---
--- Contraintes pour la table `Twoak`
---
-ALTER TABLE `Twoak`
-  ADD CONSTRAINT `Twoak_ibfk_1` FOREIGN KEY (`ID_user`) REFERENCES `User` (`Id_user`);
-
+  MODIFY `ID_User` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
