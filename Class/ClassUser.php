@@ -22,7 +22,7 @@ class user
     public function connectbdd() 
     {
         try {
-            $bdd = new PDO('mysql:host=localhost; dbname=twoak; charset=utf8', 'root', 'root');
+            $bdd = new PDO('mysql:host=192.168.65.245; dbname=TWOAK; charset=utf8', 'root', 'root');
         } catch (Exception $erreur) {
             echo 'Erreur : ' . $erreur->getMessage();
         }
@@ -91,5 +91,12 @@ class user
     //Voir l'avatar
     public function  getBanniere()
     {
+    }
+
+    //MATHIS CLERMONT
+
+    public function sendMessage($dest,$message,$bdd)
+    {
+
     }
 }
