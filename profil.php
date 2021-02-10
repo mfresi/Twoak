@@ -276,7 +276,26 @@ global $bdd;
 
 		<section>
 			<div class="feature-photo">
-				<figure><img src="images/resources/timeline-1.jpg" alt=""></figure>
+
+
+				<figure>
+					<?php
+					$fig = $bdd->prepare("SELECT `user_banniere` FROM `User` WHERE `ID_User` = " . $_SESSION['id']);
+					$fig->execute();
+					$figexite = $fig->rowCount() ;
+					echo $figexite;
+					$figselect = $fig->fetch();
+					if ($figexite > 0) {
+					?>
+						<img src="<?php echo $figselect['user_banniere']; ?>" alt="">
+					<?php } else {
+
+					?>
+						<img src="images/resources/timeline-1.jpg" alt="">
+					<?php } ?>
+
+				</figure>
+
 				<div class="add-btn">
 					<span>1.3k followers</span>
 					<a href="#" title="" data-ripple="">Follow</a>
