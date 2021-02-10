@@ -1,20 +1,6 @@
-<?php 
+<?php session_start();
 include "database.php";
-include "Class/classTwoak.php";
-
 global $bdd;
-$selectTwoak = $bdd->prepare('SELECT Twoak.ID_Twoak, Twoak.Twoak_texte, Twoak.Twoak_published, User.user_login FROM `Twoak`, User WHERE Twoak.ID_User = User.ID_User ORDER BY `Twoak_published` DESC');
-$selectTwoak->execute();
-$Twoakexist = $selectTwoak->rowCount();
-
-if (isset($_POST['dataText'])) {
-	$twoak = new Twoak();
-	$twoak->addTwoak($_SESSION['id'], $_POST['dataText'], $bdd);
-	?><meta http-equiv="refresh" content="0.01;URL=index.php"> <?php
-	echo "Twoak ajouté avec succès";
-}
-
-$user = new User();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -24,7 +10,7 @@ $user = new User();
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
-	<title>Home</title>
+	<title>Profil</title>
 	<link rel="icon" href="images/fav.png" type="image/png" sizes="16x16">
 
 	<link rel="stylesheet" href="css/main.min.css">
@@ -40,8 +26,11 @@ $user = new User();
 
 		<div class="responsive-header">
 			<div class="mh-head first Sticky">
+				<span class="mh-btns-left">
+					<a class="" href="#menu"><i class="fa fa-align-justify"></i></a>
+				</span>
 				<span class="mh-text">
-					<a href="index.php" title=""><img src="images/logo.png" alt=""></a>
+					<a href="index.php" title=""><img src="images/logo2.png" alt=""></a>
 				</span>
 				<span class="mh-btns-right">
 					<a class="fa fa-sliders" href="#shoppingbag"></a>
@@ -134,9 +123,8 @@ $user = new User();
 						<a href="#" title="Home" data-ripple=""><i class="ti-search"></i></a>
 						<div class="searched">
 							<form method="post" class="form-search">
-								<input type="text" placeholder="Rechercher un utilisateur">
+								<input type="text" placeholder="Search Friend">
 								<button data-ripple><i class="ti-search"></i></button>
-								<?php $user->getAllUsers($bdd) ?>
 							</form>
 						</div>
 					</li>
@@ -276,7 +264,7 @@ $user = new User();
 					<img src="images/resources/admin.jpg" alt="">
 					<span class="status f-online"></span>
 					<div class="user-setting">
-						<a href="#" title=""><i class="ti-user"></i> view profile</a>
+					<a href="#" title=""><i class="ti-user"></i> view profile</a>
 						<a href="#" title=""><i class="ti-pencil-alt"></i>edit profile</a>
 						<a href="#" title=""><i class="ti-settings"></i>account setting</a>
 						<a href="deconnexion.php" title=""><i class="ti-power-off"></i>log out</a>
@@ -285,6 +273,149 @@ $user = new User();
 				<span class="ti-menu main-menu" data-ripple=""></span>
 			</div>
 		</div><!-- topbar -->
+
+		<section>
+			<div class="feature-photo">
+				<figure><img src="images/resources/timeline-1.jpg" alt=""></figure>
+				<div class="add-btn">
+					<span>1.3k followers</span>
+					<a href="#" title="" data-ripple="">Follow</a>
+				</div>
+				<form class="edit-phto">
+					<i class="fa fa-camera-retro"></i>
+					<label class="fileContainer">
+						Changer de bannière
+						<input type="file" />
+					</label>
+				</form>
+				<div class="container-fluid">
+					<div class="row merged">
+						<div class="col-lg-2 col-sm-3">
+							<div class="user-avatar">
+								<figure>
+									<?php
+									$fig = $bdd->prepare("SELECT `user_avatar` FROM `User` WHERE `ID_User` = " . $_SESSION['id']);
+									$fig->execute();
+									$figexite = $fig->rowCount();
+									$figselect = $fig->fetch();
+									if ($figexite != 0) {
+									?>
+										<img src="<?php echo $figselect['user_avatar']; ?>" alt="">
+									<?php } else {
+
+									?>
+
+										<img src="images/resources/user-avatar2.jpg" alt="">
+									<?php } ?>
+									<form method="POST" class="edit-phto" enctype="multipart/form-data">
+										<i class="fa fa-camera-retro"></i>
+										<label class="fileContainer">
+											Changer de photo de profile
+											<input type="file" name="avatar_user" />
+
+										</label>
+										<input type='submit' name='test'>
+									</form>
+
+									<?php
+
+									if (isset($_POST['test'])) {
+										if (file_exists("avatar/".$_SESSION['login'])) {
+											echo 'Le répertoire existe déjà!';
+											$maxSize = 900000;
+											$valideType = array('.jpg', '.jpeg', '.gif', '.png');
+
+											if ($_FILES['avatar_user']['error'] > 0) {
+												echo "une erreur est survenue lors du transfert";
+												die;
+											}
+											$fileSize = $_FILES['avatar_user']['size'];
+
+											$fileType = "." . strtolower(substr(strrchr($_FILES['avatar_user']['name'], '.'), 1));
+
+											if (!in_array($fileType, $valideType)) {
+												echo "le fichier sélectionné n'est pas une image";
+												die;
+											}
+											$tmpName = $_FILES['avatar_user']['tmp_name'];
+											$Name = $_FILES['avatar_user']['name'];
+											$fileName = "avatar/" . $_SESSION['login'] . "/" . $Name;
+											$résultUplod = move_uploaded_file($tmpName, $fileName);
+											echo $tmpName;
+											if ($résultUplod) {
+												echo "transfere terminé";
+											}
+											$idUser = $_SESSION['id'];
+											$bdd->query("UPDATE `User` SET `user_avatar`= '$fileName' WHERE ID_User = $idUser");
+											?>
+										<meta http-equiv="refresh" content="0.01;URL=profil.php">
+										<?php
+										}
+										// Création du nouveau répertoire
+										
+										
+										else {
+											$nom = "avatar/".$_SESSION['login'];
+											mkdir($nom);
+											
+											$maxSize = 900000;
+											$valideType = array('.jpg', '.jpeg', '.gif', '.png');
+
+											if ($_FILES['avatar_user']['error'] > 0) {
+												echo "une erreur est survenue lors du transfert";
+												die;
+											}
+											$fileSize = $_FILES['avatar_user']['size'];
+
+											$fileType = "." . strtolower(substr(strrchr($_FILES['avatar_user']['name'], '.'), 1));
+
+											if (!in_array($fileType, $valideType)) {
+												echo "le fichier sélectionné n'est pas une image";
+												die;
+											}
+											$tmpName = $_FILES['avatar_user']['tmp_name'];
+											$Name = $_FILES['avatar_user']['name'];
+											$fileName = "avatar/" . $_SESSION['login'] . "/" . $Name;
+											$résultUplod = move_uploaded_file($tmpName, $fileName);
+											echo $tmpName;
+											if ($résultUplod) {
+												echo "transfere terminé";
+											}
+											$idUser = $_SESSION['id'];
+											$bdd->query("UPDATE `User` SET `user_avatar`= '$fileName' WHERE ID_User = $idUser");
+											?>
+										<meta http-equiv="refresh" content="0.01;URL=profil.php">
+										<?php
+										}
+									}
+
+
+
+									?>
+								</figure>
+							</div>
+						</div>
+						<div class="col-lg-10 col-sm-9">
+							<div class="timeline-info">
+								<ul>
+									<li class="admin-name">
+										<h5><?php echo $_SESSION['login'] ?></h5>
+										<span><?php echo "@" . $_SESSION['login'] . "" ?></span>
+									</li>
+									<li>
+										<!-- Page = Rt + post + like-->
+										<a class="" href="profil.php" title="" data-ripple="">Page</a>
+										<a class="" href="#" title="" data-ripple="">rt</a>
+										<a class="active" href="post.php" title="" data-ripple="">posts</a>
+										<a class="" href="like.php" title="" data-ripple="">like</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 
 		<section>
 			<div class="gap gray-bg">
@@ -299,7 +430,7 @@ $user = new User();
 											<ul class="naves">
 												<li>
 													<i class="ti-files"></i>
-													<a href="profil.php" title="">Ma pages</a>
+													<a href="home.php" title="">Actus</a>
 												</li>
 												<li>
 													<i class="ti-user"></i>
@@ -313,13 +444,13 @@ $user = new User();
 													<i class="ti-video-camera"></i>
 													<a href="timeline-videos.html" title="">videos</a>
 												</li>
+
 												<li>
 													<i class="ti-power-off"></i>
 													<a href="deconnexion.php" title="">Logout</a>
 												</li>
 											</ul>
 										</div><!-- Shortcuts -->
-
 									</aside>
 								</div><!-- sidebar -->
 								<div class="col-lg-6">
@@ -609,9 +740,8 @@ $user = new User();
 	<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 	<script src="js/main.min.js"></script>
 	<script src="js/script.js"></script>
-	<script src="js/map-init.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script>
 
 </body>
+
 
 </html>
