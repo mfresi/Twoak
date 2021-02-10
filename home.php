@@ -10,6 +10,7 @@ $Twoakexist = $selectTwoak->rowCount();
 if (isset($_POST['dataText'])) {
 	$twoak = new Twoak();
 	$twoak->addTwoak($_SESSION['id'], $_POST['dataText'], $bdd);
+	?><meta http-equiv="refresh" content="0.01;URL=index.php"> <?php
 	echo "Twoak ajouté avec succès";
 }
 
@@ -40,7 +41,7 @@ $user = new User();
 		<div class="responsive-header">
 			<div class="mh-head first Sticky">
 				<span class="mh-text">
-					<a href="newsfeed.html" title=""><img src="images/logo.png" alt=""></a>
+					<a href="#" title=""><img src="images/logo.png" alt=""></a>
 				</span>
 				<span class="mh-btns-right">
 					<a class="fa fa-sliders" href="#shoppingbag"></a>
