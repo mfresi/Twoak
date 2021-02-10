@@ -1,28 +1,26 @@
-<?php 
+<?php
+include('Class/ClassUser.php');
 session_start();
-    $bdd = new PDO('mysql:host=localhost; dbname=Test; charset=utf8', 'test', 'root');
+$friend = new user();
 
-if(!$_SESSION['pseudo']){
-    header('Location : login.php');
+try {
+    $bdd = new PDO('mysql:host=localhost; dbname=Twoak; charset=utf8', 'Twoak', 'Twoak');
+} catch (Exception $erreur) {
+    echo 'Erreur : ' . $erreur->getMessage();
 }
+
 ?>
 <!DOCTYPE html>
-    <html>
-        <head>      
-            <title> MP </title>
-                <meta charset="utf-8">
-        </head>
-            <body>
+<html>
 
-        <?php 
-            $recupUser = $bdd->query('SELECT * FROM users');
-            while($user = $recupUser->fetch())
-            {
-                ?>
-                <a href="Message.php?id=<?php echo $user['id'];?>">
-                <p> <?php echo $user['login']; ?>  </p></a> 
-                <?php 
-            }
-                ?>
-            </body>
-        </html> 
+<head>
+    <title> MP </title>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <?php
+        $tabFriends = $friend->getFriendsMSg($_SESSION['id'], $bdd);
+    ?>
+</body>
+</html>

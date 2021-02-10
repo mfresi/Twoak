@@ -19,7 +19,7 @@ class user
     }
     // Romain FLEMAL
     //Fonction de connexion avec la BDD
-    public function connectbdd() 
+    public function connectbdd()
     {
         try {
             $bdd = new PDO('mysql:host=localhost; dbname=Twoak; charset=utf8', 'root', 'root');
@@ -32,7 +32,7 @@ class user
     public function inscription($nom, $prenom, $mail, $date, $password, $bdd)
     {
         try {
-            $bdd->query('INSERT INTO `User` (`ID_User`, `user_type`, `user_nom`, `user_prenom`, `user_password`, `user_dateNaissance`, `user_mail`, `user_avatar`, `user_banniere`, `user_bio`, `user_follower`, `user_sexe`) VALUES (NULL, 1, "'. $nom .'", "'. $prenom .'", "'. $password .'", "'. $date .'", "'. $mail .'", 0, 0, 0, 0, 0)');
+            $bdd->query('INSERT INTO `User` (`ID_User`, `user_type`, `user_nom`, `user_prenom`, `user_password`, `user_dateNaissance`, `user_mail`, `user_avatar`, `user_banniere`, `user_bio`, `user_follower`, `user_sexe`) VALUES (NULL, 1, "' . $nom . '", "' . $prenom . '", "' . $password . '", "' . $date . '", "' . $mail . '", 0, 0, 0, 0, 0)');
         } catch (Exception $erreur) {
             echo 'Erreur : ' . $erreur->getMessage();
         }
@@ -50,9 +50,9 @@ class user
             // Verification avec la base de données
             $_SESSION['login'] = $userinfo['user_login'];
             $_SESSION['id'] = $userinfo['ID_User']
-        ?>
+?>
             <meta http-equiv="refresh" content="0.01;URL=index.php">
-        <?php
+<?php
         } else {
 
             echo "Identifiant ou mot de passe incorrect ! ";
@@ -60,15 +60,15 @@ class user
     }
 
     //Faire une bio
-    public function  setBio($newBio,$user,$bdd)
+    public function  setBio($newBio, $user, $bdd)
     {
-        $sql = 'UPDATE `user` SET `user`.`user_bio`='.$newBio.' WHERE `user`.`user_pseudo`='.$user.';';
+        $sql = 'UPDATE `user` SET `user`.`user_bio`=' . $newBio . ' WHERE `user`.`user_pseudo`=' . $user . ';';
         $bdd->query($sql);
     }
     //Voir la bio
-    public function  getBio($user,$bdd)
+    public function  getBio($user, $bdd)
     {
-        $sql    = 'SELECT `user_bio` FROM `user` WHERE `user`.`user_login` = '.$user.';';
+        $sql    = 'SELECT `user_bio` FROM `user` WHERE `user`.`user_login` = ' . $user . ';';
         $reqBio = $bdd->query($sql);
         $bio    =  $reqBio->fetch();
 
@@ -93,26 +93,41 @@ class user
 
     //MATHIS CLERMONT
 
-    public function sendMessage($dest,$message,$bdd)
+    public function sendMessage($dest, $message, $bdd)
     {
-
     }
 
     public function getFriends($idUser, $bdd)
     {
-        $request = $bdd->query('SELECT User.user_login FROM Follow, User WHERE Follow.Fol_ID_Follower = User.ID_User AND Follow.Fol_ID_Owner = '. $idUser .'');
-        while ($tabFriends = $request->fetch())
-        {
-            echo "<a href=''>". $tabFriends['user_login'] ."</a>";
+        $request = $bdd->query('SELECT User.user_login FROM Follow, User WHERE Follow.Fol_ID_Follower = User.ID_User AND Follow.Fol_ID_Owner = ' . $idUser . '');
+        while ($tabFriends = $request->fetch()) {
+            echo "<a href=''>" . $tabFriends['user_login'] . "</a>";
         }
     }
+
+    public function getFriendsMSg($idUser, $bdd)
+    {
+        $request = $bdd->query('SELECT User.user_login, User.ID_User FROM Follow, User WHERE Follow.Fol_ID_Follower = User.ID_User AND Follow.Fol_ID_Owner = ' . $idUser . '');
+        while ($tabFriends = $request->fetch()) {
+            echo "<p><a href='Message.php?id=" . $tabFriends['ID_User'] . "'>" . $tabFriends['user_login'] . "</a></p>";
+        }
+    }
+
+    public function DisplayPrivateMsg($idUserSource, $idUserDest, $bdd)
+    {
+        $request = $bdd->query('SELECT * FROM `Message` WHERE `ID_Sender` = '.$idUserSource.' AND `ID_Receiver` = '.$idUserDest.'');
+        while ($tabMessage = $request->fetch())
+        {
+          echo $tabMessage['texte'];
+        }
+    }
+
 
     public function getAllUsers($bdd)
     {
         $request = $bdd->query('SELECT user_login FROM User');
-        while ($tabFriends = $request->fetch())
-        {
-            echo "<aside class='sidebar static'><a href=''>". $tabFriends['user_login'] ."</a></aside>";
+        while ($tabFriends = $request->fetch()) {
+            echo "<aside class='sidebar static'><a href=''>" . $tabFriends['user_login'] . "</a></aside>";
         }
     }
 }
