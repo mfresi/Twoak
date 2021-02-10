@@ -1,4 +1,4 @@
-<?php session_start() ;
+<?php session_start();
 include "database.php";
 global $bdd;
 ?>
@@ -297,65 +297,103 @@ global $bdd;
 						<div class="col-lg-2 col-sm-3">
 							<div class="user-avatar">
 								<figure>
-								<?php 
-									$fig = $bdd->prepare("SELECT `user_avatar` FROM `User` WHERE `ID_User` = ".$_SESSION['id']);
+									<?php
+									$fig = $bdd->prepare("SELECT `user_avatar` FROM `User` WHERE `ID_User` = " . $_SESSION['id']);
 									$fig->execute();
 									$figexite = $fig->rowCount();
 									$figselect = $fig->fetch();
-									if($figexite != 0){
+									if ($figexite != 0) {
 									?>
-									<img src="<?php echo $figselect['user_avatar']; ?>" alt="">
-									<?php }else{
-										
-										?>
-										
+										<img src="<?php echo $figselect['user_avatar']; ?>" alt="">
+									<?php } else {
+
+									?>
+
 										<img src="images/resources/user-avatar2.jpg" alt="">
-										<?php } ?>
+									<?php } ?>
 									<form method="POST" class="edit-phto" enctype="multipart/form-data">
 										<i class="fa fa-camera-retro"></i>
 										<label class="fileContainer">
 											Changer de photo de profile
-											<input type="file" name="avatar_user"/>
-											
+											<input type="file" name="avatar_user" />
+
 										</label>
-										<input type ='submit' name= 'test'>
+										<input type='submit' name='test'>
 									</form>
-									
+
 									<?php
 
-										if (isset($_POST['test'])) {
-										?> 
+									if (isset($_POST['test'])) {
+										if (file_exists("avatar/".$_SESSION['login'])) {
+											echo 'Le répertoire existe déjà!';
+											$maxSize = 900000;
+											$valideType = array('.jpg', '.jpeg', '.gif', '.png');
+
+											if ($_FILES['avatar_user']['error'] > 0) {
+												echo "une erreur est survenue lors du transfert";
+												die;
+											}
+											$fileSize = $_FILES['avatar_user']['size'];
+
+											$fileType = "." . strtolower(substr(strrchr($_FILES['avatar_user']['name'], '.'), 1));
+
+											if (!in_array($fileType, $valideType)) {
+												echo "le fichier sélectionné n'est pas une image";
+												die;
+											}
+											$tmpName = $_FILES['avatar_user']['tmp_name'];
+											$Name = $_FILES['avatar_user']['name'];
+											$fileName = "avatar/" . $_SESSION['login'] . "/" . $Name;
+											$résultUplod = move_uploaded_file($tmpName, $fileName);
+											echo $tmpName;
+											if ($résultUplod) {
+												echo "transfere terminé";
+											}
+											$idUser = $_SESSION['id'];
+											$bdd->query("UPDATE `User` SET `user_avatar`= '$fileName' WHERE ID_User = $idUser");
+											?>
+										<meta http-equiv="refresh" content="0.01;URL=profil.php">
 										<?php
-										$maxSize = 900000;
-										$valideType = array('.jpg', '.jpeg', '.gif', '.png');
-
-										if ($_FILES['avatar_user']['error'] > 0) {
-											echo "une erreur est survenue lors du transfert";
-											die;
 										}
-										$fileSize = $_FILES['avatar_user']['size'];
+										// Création du nouveau répertoire
+										
+										
+										else {
+											$nom = "avatar/".$_SESSION['login'];
+											mkdir($nom);
+											
+											$maxSize = 900000;
+											$valideType = array('.jpg', '.jpeg', '.gif', '.png');
 
-										//if ($fileSize > $maxSize) {
-										// echo "les fichier est trop volumineux";
-										// die;
-										// }
+											if ($_FILES['avatar_user']['error'] > 0) {
+												echo "une erreur est survenue lors du transfert";
+												die;
+											}
+											$fileSize = $_FILES['avatar_user']['size'];
 
-										$fileType = "." . strtolower(substr(strrchr($_FILES['avatar_user']['name'], '.'), 1));
+											$fileType = "." . strtolower(substr(strrchr($_FILES['avatar_user']['name'], '.'), 1));
 
-										if (!in_array($fileType, $valideType)) {
-											echo "le fichier sélectionné n'est pas une image";
-											die;
+											if (!in_array($fileType, $valideType)) {
+												echo "le fichier sélectionné n'est pas une image";
+												die;
+											}
+											$tmpName = $_FILES['avatar_user']['tmp_name'];
+											$Name = $_FILES['avatar_user']['name'];
+											$fileName = "avatar/" . $_SESSION['login'] . "/" . $Name;
+											$résultUplod = move_uploaded_file($tmpName, $fileName);
+											echo $tmpName;
+											if ($résultUplod) {
+												echo "transfere terminé";
+											}
+											$idUser = $_SESSION['id'];
+											$bdd->query("UPDATE `User` SET `user_avatar`= '$fileName' WHERE ID_User = $idUser");
+											?>
+										<meta http-equiv="refresh" content="0.01;URL=profil.php">
+										<?php
 										}
-										$tmpName = $_FILES['avatar_user']['tmp_name'];
-										$Name = $_FILES['avatar_user']['name'];
-										$fileName = "avatar/" . $Name;
-										$résultUplod = move_uploaded_file($tmpName, $fileName);
-										if ($résultUplod) {
-											echo "transfere terminé";
-										}
-										$idUser = $_SESSION['id'];
-										$bdd->query("UPDATE `User` SET `user_avatar`= '$fileName' WHERE ID_User = $idUser");
 									}
+
+
 
 									?>
 								</figure>
