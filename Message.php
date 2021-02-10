@@ -36,7 +36,10 @@ if ($_POST['envoyer']) {
     </form>
     <section id="messages">
         <?php
+        echo "Message Envoye :";
             $message->DisplayPrivateMsgSend($_SESSION['id'], $idDestination, $bdd);
+        echo "Message Recu :" ;    
+            $message->DisplayPrivateMsgRecv($_SESSION['id'], $idDestination, $bdd);
         ?>
     </section>
 </body>

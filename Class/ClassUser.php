@@ -113,12 +113,21 @@ class user
         }
     }
 
-    public function DisplayPrivateMsg($idUserSource, $idUserDest, $bdd)
+    public function DisplayPrivateMsgSend($idUserSource, $idUserDest, $bdd)
     {
         $request = $bdd->query('SELECT * FROM `Message` WHERE `ID_Sender` = '.$idUserSource.' AND `ID_Receiver` = '.$idUserDest.'');
         while ($tabMessage = $request->fetch())
         {
-          echo $tabMessage['texte'];
+          echo "<p>" . $tabMessage['texte'] . "</p>";
+        }
+    }
+
+    public function DisplayPrivateMsgRecv($idUserSource, $idUserDest, $bdd)
+    {
+        $request = $bdd->query('SELECT * FROM `Message` WHERE `ID_Sender` = '.$idUserDest.' AND `ID_Receiver` = '.$idUserSource.'');
+        while ($tabMessage = $request->fetch())
+        {
+          echo "<p>" . $tabMessage['texte'] . "</p>";
         }
     }
 
