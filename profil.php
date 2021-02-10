@@ -283,15 +283,16 @@ global $bdd;
 					<?php
 					$fig = $bdd->prepare("SELECT `user_banniere` FROM `User` WHERE `ID_User` = " . $_SESSION['id']);
 					$fig->execute();
-					$figexite = $fig->rowCount();
+					$figexite = $fig->rowCount() ;
+					echo $figexite;
 					$figselect = $fig->fetch();
-					if ($figexite != 0) {
+					if ($figexite > 0) {
 					?>
 						<img src="<?php echo $figselect['user_banniere']; ?>" alt="">
 					<?php } else {
 
 					?>
-						<img src="images/resources/timeline-1.jpg" alt="">>
+						<img src="images/resources/timeline-1.jpg" alt="">
 					<?php } ?>
 
 				</figure>
