@@ -297,7 +297,20 @@ global $bdd;
 						<div class="col-lg-2 col-sm-3">
 							<div class="user-avatar">
 								<figure>
-									<img src="images/resources/user-avatar2.jpg" alt="">
+								<?php 
+									$fig = $bdd->prepare("SELECT `user_avatar` FROM `User` WHERE `ID_User` = ".$_SESSION['id']);
+									$fig->execute();
+									$figexite = $fig->rowCount();
+									$figselect = $fig->fetch();
+									if($figexite != 0){
+									?>
+									<img src="<?php echo $figselect['user_avatar']; ?>" alt="">
+									<?php }else{
+										
+										?>
+										
+										<img src="images/resources/user-avatar2.jpg" alt="">
+										<?php } ?>
 									<form method="POST" class="edit-phto" enctype="multipart/form-data">
 										<i class="fa fa-camera-retro"></i>
 										<label class="fileContainer">
