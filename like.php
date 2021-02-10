@@ -402,13 +402,15 @@ global $bdd;
 										<h5><?php echo $_SESSION['login'] ?></h5>
 										<span><?php echo "@" . $_SESSION['login'] . "" ?></span>
 									</li>
-									<li>
+									
+                                    <li>
 										<!-- Page = Rt + post + like-->
-										<a class="active" href="#" title="" data-ripple="">Page</a>
+										<a class="" href="profil.php" title="" data-ripple="">Page</a>
 										<a class="" href="#" title="" data-ripple="">rt</a>
 										<a class="" href="post.php" title="" data-ripple="">posts</a>
-										<a class="" href="like.php" title="" data-ripple="">like</a>
+										<a class="active" href="like.php" title="" data-ripple="">like</a>
 									</li>
+									
 								</ul>
 							</div>
 						</div>
@@ -434,7 +436,7 @@ global $bdd;
 												</li>
 												<li>
 													<i class="ti-user"></i>
-													<a href="timeline-friends.html" title="">Amis</a>
+													<a href="deconnexion.php" title="">Amis</a>
 												</li>
 												<li>
 													<i class="ti-image"></i>

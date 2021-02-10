@@ -404,9 +404,9 @@ global $bdd;
 									</li>
 									<li>
 										<!-- Page = Rt + post + like-->
-										<a class="active" href="#" title="" data-ripple="">Page</a>
+										<a class="" href="profil.php" title="" data-ripple="">Page</a>
 										<a class="" href="#" title="" data-ripple="">rt</a>
-										<a class="" href="post.php" title="" data-ripple="">posts</a>
+										<a class="active" href="post.php" title="" data-ripple="">posts</a>
 										<a class="" href="like.php" title="" data-ripple="">like</a>
 									</li>
 								</ul>
