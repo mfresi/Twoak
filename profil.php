@@ -1,5 +1,6 @@
 <?php session_start();
 include "database.php";
+include "function.php";
 global $bdd;
 ?>
 <!DOCTYPE html>
@@ -420,26 +421,9 @@ global $bdd;
 
 									</div>
 								</div><!-- centerl meta -->
-								<div class="col-lg-3">
-									<aside class="sidebar static">
-										<div class="widget friend-list stick-widget">
-											<h4 class="widget-title">Amis</h4>
-											<div id="searchDir"></div>
-											<ul id="people-list" class="friendz-list">
-												<li>
-													<figure>
-														<img src="images/resources/friend-avatar.jpg" alt="">
-														<span class="status f-online"></span>
-													</figure>
-													<div class="friendz-meta">
-														<a href="time-line.html">Bucky Barnes</a>
-														<i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1e6977706a7b6c6d71727a7b6c5e79737f7772307d7173">[email&#160;protected]</a></i>
-													</div>
-												</li>
-												<li>
-										</div><!-- friends list sidebar -->
-									</aside>
-								</div><!-- sidebar -->
+								<?php
+									viewFriends($bdd, 'SELECT User.user_login, User.user_avatar FROM Follow, User WHERE Follow.Fol_ID_Follower = User.ID_User AND Follow.Fol_ID_Owner = ' . $_SESSION['id'] . '')
+								?>
 							</div>
 						</div>
 					</div>

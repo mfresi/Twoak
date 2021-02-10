@@ -79,8 +79,13 @@ class user
     {
     }
     //Voir l'avatar
-    public function getAvatar()
+    public function getAvatar($idUser, $bdd)
     {
+        $request = $bdd->query('SELECT `user_avatar` FROM `User` WHERE ID_User = "'. $idUser .'"');
+        
+        $imgUser = $request->fetch();
+        
+        echo $imgUser['user_avatar'];
     }
     //Ajouter une banniere
     public function  setBanniere()
