@@ -1,6 +1,5 @@
 <?php session_start();
 include "database.php";
-include "function.php";
 global $bdd;
 ?>
 <!DOCTYPE html>
@@ -277,75 +276,18 @@ global $bdd;
 
 		<section>
 			<div class="feature-photo">
-
-
-				<figure>
-					<?php
-					$fig = $bdd->prepare("SELECT `user_banniere` FROM `User` WHERE `ID_User` = " . $_SESSION['id']);
-					$fig->execute();
-					$figexite = $fig->rowCount();
-					$figselect = $fig->fetch();
-					if ($figexite != 0) {
-					?>
-						<img src="<?php echo $figselect['user_banniere']; ?>" alt="">
-					<?php } else {
-
-					?>
-						<img src="images/resources/timeline-1.jpg" alt="">>
-					<?php } ?>
-
-				</figure>
+				<figure><img src="images/resources/timeline-1.jpg" alt=""></figure>
 				<div class="add-btn">
 					<span>1.3k followers</span>
 					<a href="#" title="" data-ripple="">Follow</a>
 				</div>
-				<form method="POST" class="edit-phto" enctype="multipart/form-data">
+				<form class="edit-phto">
 					<i class="fa fa-camera-retro"></i>
 					<label class="fileContainer">
-						Changer de photo de profile
-						<input type="file" name="banniere_user" />
-
+						Changer de bannière
+						<input type="file" />
 					</label>
-					<input type='submit' name='test_banniere'>
 				</form>
-				<?php
-				if (isset($_POST['test_banniere'])) {
-					if (file_exists("banniere/" . $_SESSION['login'])) {
-						echo 'Le répertoire existe déjà!';
-
-						UploadIMG(
-							$_FILES['banniere_user']['error'],
-							$_FILES['banniere_user']['name'],
-							$_FILES['banniere_user']['tmp_name'],
-							$bdd,
-							"UPDATE `User` SET `user_banniere`= '",
-							"' WHERE ID_User = " . $_SESSION['id'],
-							"banniere"
-						);
-
-				?>
-						<meta http-equiv="refresh" content="0.01;URL=profil.php">
-					<?php
-					} else {
-						$nom = "banniere/" . $_SESSION['login'];
-						mkdir($nom);
-
-						UploadIMG(
-							$_FILES['banniere_user']['error'],
-							$_FILES['banniere_user']['name'],
-							$_FILES['banniere_user']['tmp_name'],
-							$bdd,
-							"UPDATE `User` SET `user_banniere`= '",
-							"' WHERE ID_User = " . $_SESSION['id'],
-							"banniere"
-						);
-					?>
-						<meta http-equiv="refresh" content="0.01;URL=profil.php">
-				<?php
-					}
-				}
-
-				?>
 				<div class="container-fluid">
 					<div class="row merged">
 						<div class="col-lg-2 col-sm-3">
@@ -372,42 +314,78 @@ global $bdd;
 											<input type="file" name="avatar_user" />
 
 										</label>
-										<input type='submit' name='test_avatar'>
+										<input type='submit' name='test'>
 									</form>
 
 									<?php
 
-									if (isset($_POST['test_avatar'])) {
-										if (file_exists("avatar/" . $_SESSION['login'])) {
+									if (isset($_POST['test'])) {
+										if (file_exists("avatar/".$_SESSION['login'])) {
 											echo 'Le répertoire existe déjà!';
-											UploadIMG(
-												$_FILES['avatar_user']['error'],
-												$_FILES['avatar_user']['name'],
-												$_FILES['avatar_user']['tmp_name'],
-												$bdd,
-												"UPDATE `User` SET `user_avatar`= '",
-												"' WHERE ID_User = " . $_SESSION['id'],
-												"avatar"
-											);
-									?>
-											<meta http-equiv="refresh" content="0.01;URL=profil.php">
-										<?php
-										} else {
-											$nom = "avatar/" . $_SESSION['login'];
-											mkdir($nom);
+											$maxSize = 900000;
+											$valideType = array('.jpg', '.jpeg', '.gif', '.png');
 
-											UploadIMG(
-												$_FILES['avatar_user']['error'],
-												$_FILES['avatar_user']['name'],
-												$_FILES['avatar_user']['tmp_name'],
-												$bdd,
-												"UPDATE `User` SET `user_avatar`= '",
-												"' WHERE ID_User = " . $_SESSION['id'],
-												"avatar"
-											);
-										?>
-											<meta http-equiv="refresh" content="0.01;URL=profil.php">
-									<?php
+											if ($_FILES['avatar_user']['error'] > 0) {
+												echo "une erreur est survenue lors du transfert";
+												die;
+											}
+											$fileSize = $_FILES['avatar_user']['size'];
+
+											$fileType = "." . strtolower(substr(strrchr($_FILES['avatar_user']['name'], '.'), 1));
+
+											if (!in_array($fileType, $valideType)) {
+												echo "le fichier sélectionné n'est pas une image";
+												die;
+											}
+											$tmpName = $_FILES['avatar_user']['tmp_name'];
+											$Name = $_FILES['avatar_user']['name'];
+											$fileName = "avatar/" . $_SESSION['login'] . "/" . $Name;
+											$résultUplod = move_uploaded_file($tmpName, $fileName);
+											echo $tmpName;
+											if ($résultUplod) {
+												echo "transfere terminé";
+											}
+											$idUser = $_SESSION['id'];
+											$bdd->query("UPDATE `User` SET `user_avatar`= '$fileName' WHERE ID_User = $idUser");
+											?>
+										<meta http-equiv="refresh" content="0.01;URL=profil.php">
+										<?php
+										}
+										// Création du nouveau répertoire
+										
+										
+										else {
+											$nom = "avatar/".$_SESSION['login'];
+											mkdir($nom);
+											
+											$maxSize = 900000;
+											$valideType = array('.jpg', '.jpeg', '.gif', '.png');
+
+											if ($_FILES['avatar_user']['error'] > 0) {
+												echo "une erreur est survenue lors du transfert";
+												die;
+											}
+											$fileSize = $_FILES['avatar_user']['size'];
+
+											$fileType = "." . strtolower(substr(strrchr($_FILES['avatar_user']['name'], '.'), 1));
+
+											if (!in_array($fileType, $valideType)) {
+												echo "le fichier sélectionné n'est pas une image";
+												die;
+											}
+											$tmpName = $_FILES['avatar_user']['tmp_name'];
+											$Name = $_FILES['avatar_user']['name'];
+											$fileName = "avatar/" . $_SESSION['login'] . "/" . $Name;
+											$résultUplod = move_uploaded_file($tmpName, $fileName);
+											echo $tmpName;
+											if ($résultUplod) {
+												echo "transfere terminé";
+											}
+											$idUser = $_SESSION['id'];
+											$bdd->query("UPDATE `User` SET `user_avatar`= '$fileName' WHERE ID_User = $idUser");
+											?>
+										<meta http-equiv="refresh" content="0.01;URL=profil.php">
+										<?php
 										}
 									}
 
