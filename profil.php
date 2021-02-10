@@ -30,7 +30,7 @@ global $bdd;
 					<a class="" href="#menu"><i class="fa fa-align-justify"></i></a>
 				</span>
 				<span class="mh-text">
-					<a href="#" title=""><img src="images/logo2.png" alt=""></a>
+					<a href="index.php" title=""><img src="images/logo2.png" alt=""></a>
 				</span>
 				<span class="mh-btns-right">
 					<a class="fa fa-sliders" href="#shoppingbag"></a>
@@ -113,7 +113,7 @@ global $bdd;
 
 		<div class="topbar stick">
 			<div class="logo">
-				<a title="" href="newsfeed.html"><img src="images/logo.png" alt=""></a>
+				<a title="" href="index.php"><img src="images/logo.png" alt=""></a>
 			</div>
 
 			<div class="top-area">
@@ -271,7 +271,7 @@ global $bdd;
 						<a href="#" title=""><i class="ti-pencil-alt"></i>edit profile</a>
 						<a href="#" title=""><i class="ti-target"></i>activity log</a>
 						<a href="#" title=""><i class="ti-settings"></i>account setting</a>
-						<a href="#" title=""><i class="ti-power-off"></i>log out</a>
+						<a href="deconnexion.php" title=""><i class="ti-power-off"></i>log out</a>
 					</div>
 				</div>
 				<span class="ti-menu main-menu" data-ripple=""></span>
