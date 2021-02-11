@@ -49,7 +49,10 @@ class user
             $userinfo = $request->fetch();
             // Verification avec la base de données
             $_SESSION['login'] = $userinfo['user_login'];
-            $_SESSION['id'] = $userinfo['ID_User']
+            $_SESSION['id'] = $userinfo['ID_User'];
+            $connect = $bdd->prepare("UPDATE User SET user_status = 1 WHERE ID_User = ". $userinfo['ID_User']);
+            $connect->execute();
+
 ?>
             <meta http-equiv="refresh" content="0.01;URL=index.php">
 <?php

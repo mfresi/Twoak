@@ -14,6 +14,12 @@ if (isset($_POST['dataText'])) {
 }
 $user = new User();
 ?>
+<script>
+	function refreshListFriends()
+	{
+		setInterval(alert("test"), 5000);
+	}
+</script>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -130,11 +136,18 @@ $user = new User();
 						<a href="#" title="Home" data-ripple=""><i class="ti-search"></i></a>
 						<div class="searched">
 							<form method="post" class="form-search">
-								<input type="text" placeholder="Rechercher un utilisateur">
+								<input type="text" id="search-user" placeholder="Rechercher un utilisateur">
 								<button data-ripple><i class="ti-search"></i></button>
-								<?php $user->getAllUsers($bdd) ?>
-							</form>
+								<form method="post" class="form-search">
+									<div id="result-search"></div>
+									<button data-ripple><i class="ti-search"></i></button>
+									
+								</form>
+								
 						</div>
+
+
+
 					</li>
 					<li><a href="newsfeed.html" title="Home" data-ripple=""><i class="ti-home"></i></a></li>
 					<li>
@@ -319,12 +332,13 @@ $user = new User();
 									</aside>
 								</div><!-- sidebar -->
 								<div class="col-lg-6">
-									<?php addTwoak($bdd, "SELECT `user_avatar` FROM `User` WHERE ID_User = ".$_SESSION['id']); ?>
+									<?php addTwoak($bdd, "SELECT `user_avatar` FROM `User` WHERE ID_User = " . $_SESSION['id']); ?>
 									<div class="loadMore">
 										<?php viewTwoak($bdd, "SELECT Twoak.ID_Twoak, Twoak.Twoak_texte, Twoak.Twoak_published, User.user_login, User.user_avatar FROM `Twoak`, User WHERE Twoak.ID_User = User.ID_User ORDER BY `Twoak_published` DESC"); ?>
 									</div><!-- centerl meta -->
+									<script> refreshListFriends() </script>
 									<?php
-										viewFriends($bdd, 'SELECT User.user_login, User.user_avatar FROM Follow, User WHERE Follow.Fol_ID_Follower = User.ID_User AND Follow.Fol_ID_Owner = ' . $_SESSION['id'] . '')
+									viewFriends($bdd, 'SELECT User.user_login, User.user_avatar, User.user_status FROM Follow, User WHERE Follow.Fol_ID_Follower = User.ID_User AND Follow.Fol_ID_Owner = ' . $_SESSION['id'] . '')
 									?>
 								</div>
 							</div>
@@ -411,8 +425,7 @@ $user = new User();
 	<script src="js/main.min.js"></script>
 	<script src="js/script.js"></script>
 	<script src="js/map-init.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script>
-
+	
 </body>
 
 </html>

@@ -78,6 +78,14 @@ function viewFriends($bdd, $request)
                         <li>
                             <figure>
                                 <img src="<?php echo $tabFriends['user_avatar']; ?>">
+                                <?php 
+                                    if($tabFriends['user_status'] == 1){
+                                        echo '<span class="status f-online"></span>';
+                                    }else{
+                                        echo '<span class="status f-off"></span>';
+                                    }
+                                ?>
+                                
                             </figure>
                             <div class="friendz-meta">
                                 <a href="time-line.html"><?php echo $tabFriends['user_login']; ?></a>
