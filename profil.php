@@ -91,15 +91,12 @@ global $bdd;
 					$fig = $bdd->prepare("SELECT `user_banniere` FROM `User` WHERE `ID_User` = " . $_SESSION['id']);
 					$fig->execute();
 					$figexite = $fig->rowCount();
-					echo $figexite;
 					$figselect = $fig->fetch();
 					if ($figexite > 0) {
 					?>
 						<img src="<?php echo $figselect['user_banniere']; ?>" alt="">
-					<?php } else {
+					<?php }
 					?>
-						<img src="images/resources/timeline-1.jpg" alt="">
-					<?php } ?>
 				</figure>
 				<div class="add-btn">
 					<span>1.3k followers</span>
@@ -160,10 +157,9 @@ global $bdd;
 									if ($figexite != 0) {
 									?>
 										<img src="<?php echo $figselect['user_avatar']; ?>" alt="">
-									<?php } else {
+									<?php } 
 									?>
-										<img src="images/resources/user-avatar2.jpg" alt="">
-									<?php } ?>
+									
 									<form method="POST" class="edit-phto" enctype="multipart/form-data">
 										<i class="fa fa-camera-retro"></i>
 										<label class="fileContainer">
