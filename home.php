@@ -15,9 +15,15 @@ if (isset($_POST['dataText'])) {
 $user = new User();
 ?>
 <script>
-	function refreshListFriends()
-	{
-		setInterval(alert("test"), 5000);
+	setInterval(reload, 2500);
+
+	function reload() {
+		var container = document.getElementById("yourDiv");
+		var content = container.innerHTML;
+		container.innerHTML = content;
+
+		//this line is to watch the result in console , you can remove it later	
+		console.log("Refreshed");
 	}
 </script>
 <!DOCTYPE html>
@@ -38,7 +44,7 @@ $user = new User();
 
 </head>
 
-<body>
+<body onload="reload();">
 	<!--<div class="se-pre-con"></div>-->
 	<div class="theme-layout">
 		<div class="responsive-header">
@@ -141,9 +147,9 @@ $user = new User();
 								<form method="post" class="form-search">
 									<div id="result-search"></div>
 									<button data-ripple><i class="ti-search"></i></button>
-									
+
 								</form>
-								
+
 						</div>
 
 
@@ -336,10 +342,11 @@ $user = new User();
 									<div class="loadMore">
 										<?php viewTwoak($bdd, "SELECT Twoak.ID_Twoak, Twoak.Twoak_texte, Twoak.Twoak_published, User.user_login, User.user_avatar FROM `Twoak`, User WHERE Twoak.ID_User = User.ID_User ORDER BY `Twoak_published` DESC"); ?>
 									</div><!-- centerl meta -->
-									<script> refreshListFriends() </script>
+									
 									<?php
 									viewFriends($bdd, 'SELECT User.user_login, User.user_avatar, User.user_status FROM Follow, User WHERE Follow.Fol_ID_Follower = User.ID_User AND Follow.Fol_ID_Owner = ' . $_SESSION['id'] . '')
 									?>
+									
 								</div>
 							</div>
 						</div>
@@ -425,7 +432,7 @@ $user = new User();
 	<script src="js/main.min.js"></script>
 	<script src="js/script.js"></script>
 	<script src="js/map-init.js"></script>
-	
+
 </body>
 
 </html>

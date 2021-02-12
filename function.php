@@ -68,7 +68,7 @@ function viewFriends($bdd, $request)
     $selectFriends = $bdd->prepare($request);
     $selectFriends->execute(); ?>
 
-    <div class="col-lg-3">
+<div class="col-lg-3">
         <aside class="sidebar static">
             <div class="widget friend-list stick-widget">
                 <h4 class="widget-title">Amis</h4>
@@ -95,7 +95,8 @@ function viewFriends($bdd, $request)
                 </ul>
             </div><!-- friends list sidebar -->
         </aside>
-    </div><?php
+</div>
+    <?php
         }
 
         function viewTwoak($bdd, $request)
