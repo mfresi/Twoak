@@ -49,6 +49,8 @@
 
         $(thisAlert).removeClass('alert-validate');
     }
+<<<<<<< HEAD
+=======
 
 <<<<<<< HEAD
     function banipfct(iptoban)
@@ -72,4 +74,5 @@ window.location.replace("http://www.google.com")
 
 >>>>>>> 31508d7ddf398362801333c726723a84b85aa954
 
+>>>>>>> 0c842e71f520634f21b59daedd5a133fcad6026a
 })(jQuery);

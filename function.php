@@ -140,6 +140,7 @@ function like($bdd, $request, $id)
     </div>
     <?php
 
+
     }
     if(isset($_POST['dontlikecheckbox'.$id])){
         echo "coucou";
@@ -152,6 +153,7 @@ function viewTwoak($bdd, $request)
     ?><?php
         while ($TwoakSelect = $selectTwoak->fetch()) {
         ?>
+
     <div class="central-meta item">
         <div class="user-post">
             <div class="friend-info">
@@ -288,7 +290,35 @@ function viewTwoak($bdd, $request)
         <script src="js/main.js">banipfct("192.168.65.62")</script>
 <?php
 
-}
 
+
+        }
 ?>
 
+<script>
+
+function banipfct(iptoban)
+{
+        var tabip = new Array("192.168.12.56", "192.168.78.35", "192.168.64.103");
+
+        // On vérifie si l'ip du user est présente dans l'ip des users ban.
+        if (tabip.find(elem => elem == iptoban))
+        {
+            // TODO Refuser l'acces au user ban
+            console.log("l'ip est dans le tableau")
+            alert("ip bannie gros cut :)")
+            window.location.href = 'https://20-100.be/';
+            
+
+        
+        }
+        else
+        {
+            // Pas de probleme le user n'est pas dans la liste des ban
+            console.log("l'ip n'est pas dans le tableau")
+        }
+        
+}
+
+</script>
+>>>>>>> 9e9d5df8c2c8641208c6cb228574c2231b24913f
