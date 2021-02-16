@@ -1,6 +1,5 @@
 <?php
 include "database.php";
-//include "Class/ClassUser.php";
 include "Class/classTwoak.php";
 include "function.php";
 global $bdd;
@@ -15,19 +14,6 @@ if (isset($_POST['dataText'])) {
 }
 $user = new User();
 ?>
-
-<script>
-	setInterval(reload, 2500);
-
-	function reload() {
-		var container = document.getElementById("yourDiv");
-		var content = container.innerHTML;
-		container.innerHTML = content;
-
-		//this line is to watch the result in console , you can remove it later	
-		console.log("Refreshed");
-	}
-</script>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -131,7 +117,7 @@ $user = new User();
 				</div>
 			</nav>
 		</div><!-- responsive header -->
-
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<div class="topbar stick">
 			<div class="logo">
 				<a title="" href="index.php"><img src="images/logo.png" alt=""></a>
@@ -141,20 +127,39 @@ $user = new User();
 
 				<ul class="setting-area">
 					<li>
-						<a href="#" title="Home" data-ripple=""><i class="ti-search"></i></a>
+						<script>
+						$(document).ready(function(){
+							$('#search-user').keyup(function(){
+								$('#result-search').html('');
+								
+								var utilisateur = $(this).val();
+
+								if(utilisateur != ""){
+									$.ajax({
+										type: 'GET',
+										url: 'finduser.php', 
+										data: 'user='+ encodeURIComponent(utilisateur),
+										success: function(data){
+											if(data != ""){
+												$('#result-search').append(data);
+											}else{
+												document.getElementById('result-search').innerHTML = "<div style='font-size: 20px; text-align: center; margin-top: 10px'>Aucun utilisateur</div>"
+											}
+										}
+									});
+								}
+							});
+						});
+						</script>
+
 						<div class="searched">
-							<form method="post" class="form-search">
-								<input type="text" id="search-user" placeholder="Rechercher un utilisateur">
-								<button data-ripple><i class="ti-search"></i></button>
-								<form method="post" class="form-search">
-									<div id="result-search"></div>
-									<button data-ripple><i class="ti-search"></i></button>
-
-								</form>
-
+							<form action='' method='GET'>
+							<input class="form-control" type="text" name="user" id="search-user" value="" placeholder="Rechercher un ou plusieurs utilisateurs"/>
+							</form>
 						</div>
-
-
+						<?php
+						include("finduser.php");
+						?>
 
 					</li>
 					<li><a href="newsfeed.html" title="Home" data-ripple=""><i class="ti-home"></i></a></li>
@@ -336,9 +341,7 @@ $user = new User();
 												</li>
 											</ul>
 										</div><!-- Shortcuts -->
-										<?php
-										echo 'Votre adresse IP est : ' . $user->getIp($bdd);
-										?>
+
 									</aside>
 								</div><!-- sidebar -->
 								<div class="col-lg-6">
@@ -346,11 +349,11 @@ $user = new User();
 									<div class="loadMore">
 										<?php viewTwoak($bdd, "SELECT Twoak.ID_Twoak, Twoak.Twoak_texte, Twoak.Twoak_published, User.user_login, User.user_avatar, User.ID_User FROM `Twoak`, User WHERE Twoak.ID_User = User.ID_User ORDER BY `Twoak_published` DESC"); ?>
 									</div><!-- centerl meta -->
-
+									
 									<?php
 									viewFriends($bdd, 'SELECT User.user_login, User.user_avatar, User.user_status FROM Follow, User WHERE Follow.Fol_ID_Follower = User.ID_User AND Follow.Fol_ID_Owner = ' . $_SESSION['id'] . '')
 									?>
-
+									
 								</div>
 							</div>
 						</div>
