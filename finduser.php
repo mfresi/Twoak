@@ -15,16 +15,23 @@ function searchBar(){
 </script>
 <li>
 	<button onclick="searchBar()" title="Search Bar" data-ripple=""><i class="ti-search"></i>Search</button>
-	<div class="result-search" style="display:block">
+	<div class="result-search" >
+    </div>
+    <div>
 
 <?php
 if (isset($_GET["user"])) { 
-		$sql = "SELECT DISTINCT `user_login` FROM `User` WHERE `User`.`user_login` LIKE '%".$_GET['user']."%';";
+		$sql = "SELECT DISTINCT `user_login`,`ID_User` FROM `User` WHERE `User`.`user_login` LIKE '%".$_GET['user']."%';";
 		$searchUser = $bdd->query($sql);
 		$req = $searchUser->fetchALL();
+        ?> 
+        <table style="text-align:left;background:white;">
+        <th>Utilisateurs :</th>
+        <?php
         foreach($req as $r){
-            echo $r['user_login'];
+            echo "<tr><td>".$r['user_login'],$r['ID_User']."</td></tr>";
         }
+        ?></table><?php
 }?>
 	</div>
 </li>
