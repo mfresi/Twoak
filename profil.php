@@ -239,7 +239,7 @@ global $bdd;
 											<ul class="naves">
 												<li>
 													<i class="ti-files"></i>
-													<a href="home.php" title="">Actus</a>
+													<a href="index.php" title="">Actus</a>
 												</li>
 												<li>
 													<i class="ti-user"></i>
