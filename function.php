@@ -290,8 +290,5 @@ function viewTwoak($bdd, $request)
 
 }
 
-        
-
-    
 ?>
 
