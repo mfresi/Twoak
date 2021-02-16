@@ -26,11 +26,6 @@ if ($_POST['envoyer']) {
 
 <!DOCTYPE html>
 <html lang="en">
-
-<script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
-
-</script>
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,6 +58,7 @@ if ($_POST['envoyer']) {
                         <div class="conversation-head">
                             <div id="mp">
                                 <?php
+            
                                 $message->DisplayPrivateMsgSend($_SESSION['id'], $idDestination, $bdd);
                                 ?>
                             </div>
@@ -77,30 +73,6 @@ if ($_POST['envoyer']) {
         </div>
     </div>
     </div>
-
-    <script> 
-    function charger(){
-
-setTimeout( function(){
-    // on lance une requête AJAX
-    $.ajax({
-        url : "Message_Design.php",
-        type : POST,
-        success : function(html){
-            $('#mp').prepend(html); // on veut ajouter les nouveaux messages au début du bloc #messages
-        }
-    });
-
-    charger(); // on relance la fonction
-
-}, 1000); // on exécute le chargement toutes les 5 secondes
-
-}
-
-charger();
-</script>
-
-
 </body>
 
 </html>

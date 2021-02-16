@@ -130,7 +130,7 @@ class user
 
         while ($tabMessage = $request->fetch())
         {
-          echo "<p>" . $tabMessage['user_login'] . ":" . $tabMessage['texte'] . "</p>";
+          echo "<p>" . $tabMessage['user_login'] . " : " . $tabMessage['texte'] . "</p>";
         }
     }
 

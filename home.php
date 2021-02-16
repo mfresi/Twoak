@@ -14,18 +14,6 @@ if (isset($_POST['dataText'])) {
 }
 $user = new User();
 ?>
-<script>
-	setInterval(reload, 2500);
-
-	function reload() {
-		var container = document.getElementById("yourDiv");
-		var content = container.innerHTML;
-		container.innerHTML = content;
-
-		//this line is to watch the result in console , you can remove it later	
-		console.log("Refreshed");
-	}
-</script>
 <!DOCTYPE html>
 <html lang="fr">
 
