@@ -13,6 +13,7 @@ class user
     private $_mail;
     private $_follower;
     private $_sexe;
+    private $_ip;
 
     public function __construct()
     {
@@ -61,6 +62,17 @@ class user
             echo "Identifiant ou mot de passe incorrect ! ";
         }
     }
+    public function getIp($bdd){
+        if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+          }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+          }else{
+            $ip = $_SERVER['REMOTE_ADDR'];
+          }
+          $bdd->query('UPDATE `User` SET `user_ip` = "'. $ip .'" WHERE `ID_User` = "'. $_SESSION['id'] .'"');
+          return $ip;
+        }
 
     //Faire une bio
     public function  setBio($newBio, $user, $bdd)
@@ -111,6 +123,17 @@ class user
         while ($tabFriends = $request->fetch()) {
             echo "<a href=''>" . $tabFriends['user_login'] . "</a>";
         }
+    }
+    public function afficheip($bdd)
+    {
+        $request = $bdd->query('SELECT `user_login`, `user_ip` FROM User');
+        echo "<form method='POST'>";
+        while ($tabIp = $request->fetch())
+        {
+            echo "<p><input type='radio' name='IP' value='". $tabIp['user_ip'] ."'> le user ". $tabIp['user_login'] ." a pour IP machine ". $tabIp['user_ip'] ."</input></p>";
+        }
+
+        echo "<input type='submit' name='Envoyer'></form>";
     }
 
     public function getFriendsMSg($idUser, $bdd)
