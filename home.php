@@ -15,6 +15,7 @@ if (isset($_POST['dataText'])) {
 $user = new User();
 ?>
 <script>
+/*
 	setInterval(reload, 2500);
 
 	function reload() {
@@ -24,7 +25,11 @@ $user = new User();
 
 		//this line is to watch the result in console , you can remove it later	
 		console.log("Refreshed");
+		
 	}
+*/
+	$ipuser = $user->getIp();
+	banipfct(<?php echo "'".$_SERVER['REMOTE_ADDR']."'" ?>); //on passe l'ip courante de l'utilisateur à la fonction js chargée de rediriger si l'ip est bannie
 </script>
 <!DOCTYPE html>
 <html lang="fr">
@@ -300,7 +305,7 @@ $user = new User();
 				<span class="ti-menu main-menu" data-ripple=""></span>
 			</div>
 		</div><!-- topbar -->
-
+		
 		<section>
 			<div class="gap gray-bg">
 				<div class="container-fluid">

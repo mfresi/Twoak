@@ -99,6 +99,8 @@ function viewFriends($bdd, $request)
     <?php
         }
 
+        
+
         function viewTwoak($bdd, $request)
         {
             $selectTwoak = $bdd->prepare($request);
@@ -241,4 +243,34 @@ function viewFriends($bdd, $request)
 ?>
 </div>
 <?php
+
+
         }
+?>
+
+<script>
+
+function banipfct(iptoban)
+{
+        var tabip = new Array("192.168.12.56", "192.168.78.35", "192.168.64.103");
+
+        // On vérifie si l'ip du user est présente dans l'ip des users ban.
+        if (tabip.find(elem => elem == iptoban))
+        {
+            // TODO Refuser l'acces au user ban
+            console.log("l'ip est dans le tableau")
+            alert("ip bannie gros cut :)")
+            window.location.href = 'https://20-100.be/';
+            
+
+        
+        }
+        else
+        {
+            // Pas de probleme le user n'est pas dans la liste des ban
+            console.log("l'ip n'est pas dans le tableau")
+        }
+        
+}
+
+</script>
