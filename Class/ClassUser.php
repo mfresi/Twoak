@@ -144,21 +144,16 @@ class user
         }
     }
 
-    public function DisplayPrivateMsgSend($idUserSource, $idUserDest, $bdd)
+    public function DisplayPrivateMsgSend($idUserSource, $idUserDest,$bdd)
     {
-        $request = $bdd->query('SELECT * FROM `Message` WHERE `ID_Sender` = '.$idUserSource.' AND `ID_Receiver` = '.$idUserDest.'');
-        while ($tabMessage = $request->fetch())
-        {
-          echo "<p>" . $tabMessage['texte'] . "</p>";
-        }
-    }
+        
 
-    public function DisplayPrivateMsgRecv($idUserSource, $idUserDest, $bdd)
-    {
-        $request = $bdd->query('SELECT * FROM `Message` WHERE `ID_Sender` = '.$idUserDest.' AND `ID_Receiver` = '.$idUserSource.'');
+        $request = $bdd->query('SELECT `texte`, User.user_login FROM `Message`, User WHERE `ID_Sender` = '.$idUserDest.' AND `ID_Receiver` = '.$idUserSource.' AND User.ID_User = Message.ID_Sender 
+        OR `ID_Sender` = '.$idUserSource.' AND `ID_Receiver` = '.$idUserDest.' AND User.ID_User = Message.ID_Sender ORDER BY Date');
+
         while ($tabMessage = $request->fetch())
         {
-          echo "<p>" . $tabMessage['texte'] . "</p>";
+          echo "<p>" . $tabMessage['user_login'] . ":" . $tabMessage['texte'] . "</p>";
         }
     }
 
