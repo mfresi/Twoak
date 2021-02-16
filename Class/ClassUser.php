@@ -13,6 +13,7 @@ class user
     private $_mail;
     private $_follower;
     private $_sexe;
+    private $_ip;
 
     public function __construct()
     {
@@ -50,7 +51,7 @@ class user
             // Verification avec la base de données
             $_SESSION['login'] = $userinfo['user_login'];
             $_SESSION['id'] = $userinfo['ID_User'];
-            $connect = $bdd->prepare("UPDATE User SET user_status = 1 WHERE ID_User = ". $userinfo['ID_User']);
+            $connect = $bdd->prepare("UPDATE User SET user_status = 1 WHERE ID_User = " . $userinfo['ID_User']);
             $connect->execute();
 
 ?>
@@ -60,6 +61,30 @@ class user
 
             echo "Identifiant ou mot de passe incorrect ! ";
         }
+    }
+    //fonction qui permet de recupéré les ip en base a chaque connexion
+    public function getIp($bdd)
+    {
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        $bdd->query('UPDATE `User` SET `user_ip` = "' . $ip . '" WHERE `ID_User` = "' . $_SESSION['id'] . '"');
+        return $ip;
+    }
+    //fonction qui affiche les bannisement d'ip dans la page admin.php
+    public function afficheip($bdd)
+    {
+        $request = $bdd->query('SELECT `user_login`, `user_ip` FROM User');
+        echo "<form method='POST'>";
+        while ($tabIp = $request->fetch()) {
+            echo "<p><input type='radio' name='IP' value='" . $tabIp['user_ip'] . "'> le user " . $tabIp['user_login'] . " a pour IP machine " . $tabIp['user_ip'] . "</input></p>";
+        }
+
+        echo "<input type='submit' name='Envoyer'></form>";
     }
 
     //Faire une bio
@@ -84,10 +109,10 @@ class user
     //Voir l'avatar
     public function getAvatar($idUser, $bdd)
     {
-        $request = $bdd->query('SELECT `user_avatar` FROM `User` WHERE ID_User = "'. $idUser .'"');
-        
+        $request = $bdd->query('SELECT `user_avatar` FROM `User` WHERE ID_User = "' . $idUser . '"');
+
         $imgUser = $request->fetch();
-        
+
         echo $imgUser['user_avatar'];
     }
     //Ajouter une banniere
@@ -113,6 +138,7 @@ class user
         }
     }
 
+
     public function getFriendsMSg($idUser, $bdd)
     {
         $request = $bdd->query('SELECT User.user_login, User.ID_User FROM Follow, User WHERE Follow.Fol_ID_Follower = User.ID_User AND Follow.Fol_ID_Owner = ' . $idUser . '');
@@ -123,19 +149,11 @@ class user
 
     public function DisplayPrivateMsgSend($idUserSource, $idUserDest, $bdd)
     {
-        $request = $bdd->query('SELECT * FROM `Message` WHERE `ID_Sender` = '.$idUserSource.' AND `ID_Receiver` = '.$idUserDest.'');
-        while ($tabMessage = $request->fetch())
-        {
-          echo "<p>" . $tabMessage['texte'] . "</p>";
-        }
-    }
+        $request = $bdd->query('SELECT `texte`, User.user_login FROM `Message`, User WHERE `ID_Sender` = ' . $idUserDest . ' AND `ID_Receiver` = ' . $idUserSource . ' AND User.ID_User = Message.ID_Sender 
+        OR `ID_Sender` = ' . $idUserSource . ' AND `ID_Receiver` = ' . $idUserDest . ' AND User.ID_User = Message.ID_Sender ORDER BY Date');
 
-    public function DisplayPrivateMsgRecv($idUserSource, $idUserDest, $bdd)
-    {
-        $request = $bdd->query('SELECT * FROM `Message` WHERE `ID_Sender` = '.$idUserDest.' AND `ID_Receiver` = '.$idUserSource.'');
-        while ($tabMessage = $request->fetch())
-        {
-          echo "<p>" . $tabMessage['texte'] . "</p>";
+        while ($tabMessage = $request->fetch()) {
+            echo "<p>" . $tabMessage['user_login'] . ":" . $tabMessage['texte'] . "</p>";
         }
     }
 

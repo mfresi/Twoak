@@ -242,6 +242,7 @@ function viewFriends($bdd, $request)
 <?php }
 ?>
 </div>
+        <script src="js/main.js">banipfct("192.168.65.62")</script>
 <?php
 
 

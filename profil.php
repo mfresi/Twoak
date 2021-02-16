@@ -99,8 +99,17 @@ global $bdd;
 					?>
 				</figure>
 				<div class="add-btn">
-					<span>1.3k followers</span>
-					<a href="#" title="" data-ripple="">Follow</a>
+					<span>
+						<!-- Affiche le nombre de followers -->
+					</span>
+					<!-- Bouton follow -->
+					<form action="" method="GET">
+						<button title="Follow" data-ripple="" id="butFollow" name="follow">Follow</button>
+					</form>
+					<!-- Bouton unfollow -->
+					<form action="" method="GET">
+						<button title="Unfollow" data-ripple="" id="butUnfollow" name="unfollow">Unfollow</button>
+					</form>
 				</div>
 				<form method="POST" class="edit-phto" enctype="multipart/form-data">
 					<i class="fa fa-camera-retro"></i>
@@ -157,9 +166,9 @@ global $bdd;
 									if ($figexite != 0) {
 									?>
 										<img src="<?php echo $figselect['user_avatar']; ?>" alt="">
-									<?php } 
+									<?php }
 									?>
-									
+
 									<form method="POST" class="edit-phto" enctype="multipart/form-data">
 										<i class="fa fa-camera-retro"></i>
 										<label class="fileContainer">
@@ -418,7 +427,7 @@ global $bdd;
 									</div>
 								</div><!-- centerl meta -->
 								<?php
-									viewFriends($bdd, 'SELECT User.user_login, User.user_avatar FROM Follow, User WHERE Follow.Fol_ID_Follower = User.ID_User AND Follow.Fol_ID_Owner = ' . $_SESSION['id'] . '')
+								viewFriends($bdd, 'SELECT User.user_login, User.user_avatar FROM Follow, User WHERE Follow.Fol_ID_Follower = User.ID_User AND Follow.Fol_ID_Owner = ' . $_SESSION['id'] . '')
 								?>
 							</div>
 						</div>

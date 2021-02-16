@@ -1,5 +1,5 @@
 <?php
-include ('Class/ClassUser.php');
+include('Class/ClassUser.php');
 session_start();
 try {
     $bdd = new PDO('mysql:host=localhost; dbname=Twoak; charset=utf8', 'Twoak', 'Twoak');
@@ -12,18 +12,20 @@ if (!$_SESSION['login']) {
 $message = new user();
 $friend  = new user();
 $idDestination = $_GET['id'];
+$localtime = getdate(date("U"));
+$Date = "$localtime[year]-$localtime[mon]-$localtime[mday] $localtime[hours]:$localtime[minutes]:$localtime[seconds]";
 
 if ($_POST['envoyer']) {
-    $bdd->query('INSERT INTO `Message`(`ID_Sender`, `ID_Receiver`, `texte`) VALUES ("' . $_SESSION['id'] . '", "'. $idDestination .'", "' . $_POST['message'] . '")');
+    $bdd->query('INSERT INTO `Message`(`ID_Sender`, `ID_Receiver`, `texte`,`Date`) VALUES ("' . $_SESSION['id'] . '", "' . $idDestination . '", "' . $_POST['message'] . '", "' . $Date . '")');
     echo "";
 } else {
     echo "";
 }
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,7 +38,7 @@ if ($_POST['envoyer']) {
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/color.css">
     <link rel="stylesheet" href="css/responsive.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> </script>
+
 
 </head>
 
@@ -45,8 +47,6 @@ if ($_POST['envoyer']) {
         <div class="central-meta">
             <div class="messages">
                 <h5 class="f-title"><i class="ti-bell"></i>Tous vos messages </i>
-
-
                 </h5>
                 <div class="message-box">
                     <ul class="peoples">
@@ -54,39 +54,25 @@ if ($_POST['envoyer']) {
                         $tabFriends = $friend->getFriendsMSg($_SESSION['id'], $bdd);
                         ?>
                     </ul>
-                    <div class="peoples-mesg-box">
+                    <div  class="peoples-mesg-box">
                         <div class="conversation-head">
-                            <ul class="chatting-area">
-                            <section id="messages">
+                            <div id="mp">
                                 <?php
-                                echo "Message Envoye :";
+            
                                 $message->DisplayPrivateMsgSend($_SESSION['id'], $idDestination, $bdd);
-                                echo "Message Recu :";
-                                $message->DisplayPrivateMsgRecv($_SESSION['id'], $idDestination, $bdd);
                                 ?>
-                          </section>  </ul>
-                         </div>
-                            <div class="message-text-container">
-                                <form method="POST" action="">
-                                    <p> <textarea name="message"> </textarea> </p>
-                                    <input type="submit" name="envoyer">
-                                </form>
-                                </form>
                             </div>
                         </div>
+                        <form method="POST" action="">
+                            <p> <textarea name="message"> </textarea> </p>
+                            <input type="submit" name="envoyer">
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        <script src="js/main.min.js"></script>
-        <script src="js/script.js"></script>
-        <script>
-        setInterval('Message_Design.php',100);
-        function load_messages(){
-            $('#messages').load('Message_Design.php');
-        }
-        </script>
-
+    </div>
+    </div>
 </body>
 
 </html>
