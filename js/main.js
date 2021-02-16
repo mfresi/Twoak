@@ -1,19 +1,18 @@
-
-(function ($) {
+(function($) {
     "use strict";
 
-    
+
     /*==================================================================
     [ Validate ]*/
     var input = $('.validate-input .input100');
 
-    $('.validate-form').on('submit',function(){
+    $('.validate-form').on('submit', function() {
         var check = true;
 
-        for(var i=0; i<input.length; i++) {
-            if(validate(input[i]) == false){
+        for (var i = 0; i < input.length; i++) {
+            if (validate(input[i]) == false) {
                 showValidate(input[i]);
-                check=false;
+                check = false;
             }
         }
 
@@ -21,20 +20,19 @@
     });
 
 
-    $('.validate-form .input100').each(function(){
-        $(this).focus(function(){
-           hideValidate(this);
+    $('.validate-form .input100').each(function() {
+        $(this).focus(function() {
+            hideValidate(this);
         });
     });
 
-    function validate (input) {
-        if($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
-            if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
+    function validate(input) {
+        if ($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
+            if ($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
                 return false;
             }
-        }
-        else {
-            if($(input).val().trim() == ''){
+        } else {
+            if ($(input).val().trim() == '') {
                 return false;
             }
         }
@@ -52,6 +50,7 @@
         $(thisAlert).removeClass('alert-validate');
     }
 
+<<<<<<< HEAD
     function banipfct(iptoban)
     {
         var banips= new Array();
@@ -69,5 +68,8 @@ alert("Your IP has been banned from this site. Redirecting...")
 window.location.replace("http://www.google.com")
 }
  */   
+=======
+
+>>>>>>> 31508d7ddf398362801333c726723a84b85aa954
 
 })(jQuery);

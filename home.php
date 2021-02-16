@@ -1,5 +1,6 @@
 <?php
 include "database.php";
+//include "Class/ClassUser.php";
 include "Class/classTwoak.php";
 include "function.php";
 global $bdd;
@@ -14,6 +15,7 @@ if (isset($_POST['dataText'])) {
 }
 $user = new User();
 ?>
+
 <script>
 	setInterval(reload, 2500);
 
@@ -334,7 +336,9 @@ $user = new User();
 												</li>
 											</ul>
 										</div><!-- Shortcuts -->
-
+										<?php
+										echo 'Votre adresse IP est : ' . $user->getIp($bdd);
+										?>
 									</aside>
 								</div><!-- sidebar -->
 								<div class="col-lg-6">
@@ -342,11 +346,11 @@ $user = new User();
 									<div class="loadMore">
 										<?php viewTwoak($bdd, "SELECT Twoak.ID_Twoak, Twoak.Twoak_texte, Twoak.Twoak_published, User.user_login, User.user_avatar FROM `Twoak`, User WHERE Twoak.ID_User = User.ID_User ORDER BY `Twoak_published` DESC"); ?>
 									</div><!-- centerl meta -->
-									
+
 									<?php
 									viewFriends($bdd, 'SELECT User.user_login, User.user_avatar, User.user_status FROM Follow, User WHERE Follow.Fol_ID_Follower = User.ID_User AND Follow.Fol_ID_Owner = ' . $_SESSION['id'] . '')
 									?>
-									
+
 								</div>
 							</div>
 						</div>
