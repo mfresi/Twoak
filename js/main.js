@@ -51,7 +51,23 @@
 
         $(thisAlert).removeClass('alert-validate');
     }
-    
-    
+
+    function banipfct(iptoban)
+    {
+        var banips= new Array();
+        banips.push(iptoban);
+
+        alert(banips);
+    }
+
+/*
+var handleips=bannedips.join("|")
+handleips=new RegExp(handleips, "i")
+
+if (ip.search(handleips)!=-1){ 
+alert("Your IP has been banned from this site. Redirecting...")
+window.location.replace("http://www.google.com")
+}
+ */   
 
 })(jQuery);
