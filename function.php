@@ -289,8 +289,5 @@ function viewTwoak($bdd, $request)
 </div>
         
 <?php
-
-
-
         }
 ?>

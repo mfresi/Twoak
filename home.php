@@ -13,6 +13,25 @@ if (isset($_POST['dataText'])) {
 	echo "Twoak ajouté avec succès";
 }
 ?>
+<?php
+	$user = new user();
+	// Verification de l'ip machine de la personne pour savoir si elle est bannie ou pas.
+	$ipMachine = $_SERVER['REMOTE_ADDR'];
+	$tabIpBan = array();
+	$tailleTab = count($tabIpBan);
+	$user->getIpBan($bdd);
+	
+	for ($i = 0;$i < $tailleTab;$i++)
+	{
+		if ($ipMachine == $tabIpBan[$i])
+		{
+			?><script>
+				alert("Le Dictateur et son équipe vous informe que votre compte est PD");
+        		window.location.href = "http://192.168.64.53/Alex/Twoak/banni.php"
+			</script><?php
+		}
+	}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 

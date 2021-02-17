@@ -27,6 +27,5 @@ else
     echo "Selectionner une IP à bannir";
 }
 
-$user->getipban($bdd);
+$user->displayipban($bdd);
 ?>
-

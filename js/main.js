@@ -49,20 +49,4 @@
 
         $(thisAlert).removeClass('alert-validate');
     }
-
-    
-    function banipfct(iptoban)
-    {
-        
-        alert("Le dictateur mr fresi et son équipe désactive votre compte")
-        window.location.href = 'https://20-100.be/';
-       
-    }
-
-
-
-    
-
-    
-
 })(jQuery);

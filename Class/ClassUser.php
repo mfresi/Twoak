@@ -88,7 +88,7 @@ class user
         echo "<input type='submit' name='Débannir' value='Débannir'></form>";
     }
 
-    public function getipban($bdd)
+    public function displayipban($bdd)
     {
 
         $request = $bdd->query('SELECT `user_ip`, `user_login`  FROM User WHERE `user_ban` = 1 ');
@@ -97,6 +97,16 @@ class user
         <?php
         while($tabban = $request->fetch()){
             echo "<p>". $tabban['user_login'] . " (". $tabban['user_ip'] .")</p>";
+        }
+    }
+
+    public function getIpBan($bdd)
+    {
+        $request = $bdd->query('SELECT `user_ip`, `user_login`  FROM User WHERE `user_ban` = 1 ');
+        ?>
+        <?php
+        while($tabban = $request->fetch()){
+            echo "'" . $tabban['user_ip'] . ",";
         }
     }
 
