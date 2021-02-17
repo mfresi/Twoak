@@ -13,6 +13,7 @@ if (isset($_POST['dataText'])) {
 	echo "Twoak ajouté avec succès";
 }
 $user = new User();
+$ipuser = $user->getIp($bdd);
 ?>
 <script>
 /*
@@ -28,7 +29,7 @@ $user = new User();
 		
 	}
 */
-	$ipuser = $user->getIp();
+	
 	banipfct(<?php echo "'".$_SERVER['REMOTE_ADDR']."'" ?>); //on passe l'ip courante de l'utilisateur à la fonction js chargée de rediriger si l'ip est bannie
 </script>
 <!DOCTYPE html>
