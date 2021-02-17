@@ -7,13 +7,30 @@ $user = new user();
 
 $user->afficheip($bdd);
 
-if ($_POST['Envoyer'])
+
+if ($_POST['Bannir'])
 {
     
-    echo "L'IP " . $_POST['IP'] . " ban avec succès :)";
+    echo "L'IP " . $_POST['IP'] . " a été ban avec succès :)";
+    $bdd->query('UPDATE `User` SET `user_ban` = 1 WHERE `user_ip` = "'.$_POST['IP'].'"');
+    $ipuser = $user->getIp($bdd);
+} 
+else if ($_POST['Débannir'])
+{
+    echo "L'IP " . $_POST['IP'] . " a été déban avec succès :)";
+    $bdd->query('UPDATE `User` SET `user_ban` = 0 WHERE `user_ip` = "'.$_POST['IP'].'"');
+    $ipuser = $user->getIp($bdd);
 }
+
 else
 {
     echo "Selectionner une IP à bannir";
 }
+
+ $user->getipban($bdd)
+
 ?>
+
+<script>
+	banipfct(<?php echo "'".$ipuser."'" ?>); //on passe l'ip courante de l'utilisateur à la fonction js chargée de rediriger si l'ip est bannie
+</script>

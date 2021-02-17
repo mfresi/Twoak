@@ -84,7 +84,20 @@ class user
             echo "<p><input type='radio' name='IP' value='" . $tabIp['user_ip'] . "'> le user " . $tabIp['user_login'] . " a pour IP machine " . $tabIp['user_ip'] . "</input></p>";
         }
 
-        echo "<input type='submit' name='Envoyer'></form>";
+        echo "<input type='submit' name='Bannir' value='Bannir'>";
+        echo "<input type='submit' name='Débannir' value='Débannir'></form>";
+    }
+
+    public function getipban($bdd)
+    {
+
+        $request = $bdd->query('SELECT `user_ip`, `user_login`  FROM User WHERE `user_ban` = 1 ');
+        ?>
+        <h3>Liste des IP bannies : </h3>
+        <?php
+        while($tabban = $request->fetch()){
+            echo "<p>". $tabban['user_login'] . " (". $tabban['user_ip'] .")</p>";
+        }
     }
 
     //Faire une bio
