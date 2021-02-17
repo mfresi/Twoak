@@ -2,6 +2,12 @@
 include "database.php";
 include "function.php";
 global $bdd;
+
+if(isset($_GET['usr'])){
+	$id=$_GET['usr'];
+}else{
+	$id=$_SESSION['id'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -88,7 +94,7 @@ global $bdd;
 			<div class="feature-photo">
 				<figure>
 					<?php
-					$fig = $bdd->prepare("SELECT `user_banniere` FROM `User` WHERE `ID_User` = " . $_SESSION['id']);
+					$fig = $bdd->prepare("SELECT `user_banniere` FROM `User` WHERE `ID_User` = " . $id);
 					$fig->execute();
 					$figexite = $fig->rowCount();
 					$figselect = $fig->fetch();
@@ -102,14 +108,13 @@ global $bdd;
 					<span>
 						<!-- Affiche le nombre de followers -->
 					</span>
-
 					<!-- Bouton follow -->
 					<form action="" method="GET">
 						<button title="Follow" data-ripple="" id="butFollow" name="follow">Follow</button>
 					</form>
 					<!-- Bouton unfollow -->
 					<form action="" method="GET">
-						<button title="UnFollow" data-ripple="" id="butUnFollow" name="Unfollow">Unfollow</button>
+						<button title="Unfollow" data-ripple="" id="butUnfollow" name="unfollow">Unfollow</button>
 					</form>
 				</div>
 				<form method="POST" class="edit-phto" enctype="multipart/form-data">
@@ -160,7 +165,7 @@ global $bdd;
 							<div class="user-avatar">
 								<figure>
 									<?php
-									$fig = $bdd->prepare("SELECT `user_avatar` FROM `User` WHERE `ID_User` = " . $_SESSION['id']);
+									$fig = $bdd->prepare("SELECT `user_avatar` FROM `User` WHERE `ID_User` = " . $id);
 									$fig->execute();
 									$figexite = $fig->rowCount();
 									$figselect = $fig->fetch();
@@ -219,8 +224,18 @@ global $bdd;
 							<div class="timeline-info">
 								<ul>
 									<li class="admin-name">
-										<h5><?php echo $_SESSION['login'] ?></h5>
-										<span><?php echo "@" . $_SESSION['login'] . "" ?></span>
+									<?php
+									if(isset($_GET['usr'])){
+										$sqlLogin 	= "SELECT `user_login` FROM `User` WHERE `User`.`ID_User` = ".$id."";
+										$reqz 		= $bdd->query($sqlLogin);
+										$logX 		= $reqz->fetch();
+										$log		= $logX['user_login'];
+									}else{
+										$log = $_SESSION['login'];
+									}
+									?>
+										<h5><?php echo $log ?></h5>
+										<span><?php echo "@" . $log . "" ?></span>
 									</li>
 									<li>
 										<!-- Page = Rt + post + like-->
@@ -249,13 +264,21 @@ global $bdd;
 											<ul class="naves">
 												<li>
 													<i class="ti-files"></i>
-													<a href="index.php" title="">Fil d'Actualités</a>
+													<a href="index.php" title="">Actus</a>
 												</li>
 												<li>
-													<!-- Afficher sa liste d'amis -->
 													<i class="ti-user"></i>
-													<a href="" title="">Amis</a>
+													<a href="timeline-friends.html" title="">Amis</a>
 												</li>
+												<li>
+													<i class="ti-image"></i>
+													<a href="timeline-photos.html" title="">Images</a>
+												</li>
+												<li>
+													<i class="ti-video-camera"></i>
+													<a href="timeline-videos.html" title="">Videos</a>
+												</li>
+
 												<li>
 													<i class="ti-power-off"></i>
 													<a href="deconnexion.php" title="">Se Déconnecter</a>
@@ -276,32 +299,69 @@ global $bdd;
 														<img src="images/resources/friend-avatar11.jpg" alt="">
 													</figure>
 													<div class="friend-name">
-														<ins><a href="time-line.html" title="">
-																<!-- Afficher le nom du gars qui tweet -->
-															</a></ins>
-														<span>
-															<!-- Afficher la date du tweet -->
-														</span>
+														<ins><a href="time-line.html" title="">Sarah grey</a></ins>
+														<span>published: june,2 2018 19:PM</span>
 													</div>
 													<div class="post-meta">
 														<img src="images/resources/user-post7.jpg" alt="">
 														<div class="we-video-info">
 															<ul>
 																<li>
+																	<span class="views" data-toggle="tooltip" title="views">
+																		<i class="fa fa-eye"></i>
+																		<ins>1.2k</ins>
+																	</span>
+																</li>
+																<li>
 																	<span class="comment" data-toggle="tooltip" title="Comments">
 																		<i class="fa fa-comments-o"></i>
-																		<ins>
-																			<!-- Afficher le nombre de comentaire -->
-																		</ins>
+																		<ins>52</ins>
 																	</span>
 																</li>
 																<li>
 																	<span class="like" data-toggle="tooltip" title="like">
 																		<i class="ti-heart"></i>
-																		<ins>
-																			<!-- Afficher le nombre de like -->
-																		</ins>
+																		<ins>2.2k</ins>
 																	</span>
+																</li>
+																<li>
+																	<span class="dislike" data-toggle="tooltip" title="dislike">
+																		<i class="ti-heart-broken"></i>
+																		<ins>200</ins>
+																	</span>
+																</li>
+																<li class="social-media">
+																	<div class="menu">
+																		<div class="btn trigger"><i class="fa fa-share-alt"></i></div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
+																			</div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
+																			</div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
+																			</div>
+																		</div>
+
+																	</div>
 																</li>
 															</ul>
 														</div>
@@ -357,7 +417,20 @@ global $bdd;
 																	<div class="add-smiles">
 																		<span class="em em-expressionless" title="add icon"></span>
 																	</div>
-
+																	<div class="smiles-bunch">
+																		<i class="em em---1"></i>
+																		<i class="em em-smiley"></i>
+																		<i class="em em-anguished"></i>
+																		<i class="em em-laughing"></i>
+																		<i class="em em-angry"></i>
+																		<i class="em em-astonished"></i>
+																		<i class="em em-blush"></i>
+																		<i class="em em-disappointed"></i>
+																		<i class="em em-worried"></i>
+																		<i class="em em-kissing_heart"></i>
+																		<i class="em em-rage"></i>
+																		<i class="em em-stuck_out_tongue"></i>
+																	</div>
 																	<button type="submit"></button>
 																</form>
 															</div>
@@ -369,8 +442,8 @@ global $bdd;
 
 									</div>
 								</div><!-- centerl meta -->
-								<?php
-								viewFriends($bdd, 'SELECT User.user_login, User.user_avatar FROM Follow, User WHERE Follow.Fol_ID_Follower = User.ID_User AND Follow.Fol_ID_Owner = ' . $_SESSION['id'] . '')
+								<?php																	
+								viewFriends($bdd, 'SELECT User.user_login, User.user_avatar FROM Follow, User WHERE Follow.Fol_ID_Follower = User.ID_User AND Follow.Fol_ID_Owner = ' . $id . '')
 								?>
 							</div>
 						</div>
