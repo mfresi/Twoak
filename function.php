@@ -68,7 +68,7 @@ function viewFriends($bdd, $request)
     $selectFriends = $bdd->prepare($request);
     $selectFriends->execute(); ?>
 
-<div class="col-lg-3">
+    <div class="col-lg-3">
         <aside class="sidebar static">
             <div class="widget friend-list stick-widget">
                 <h4 class="widget-title">Amis</h4>
@@ -78,14 +78,14 @@ function viewFriends($bdd, $request)
                         <li>
                             <figure>
                                 <img src="<?php echo $tabFriends['user_avatar']; ?>">
-                                <?php 
-                                    if($tabFriends['user_status'] == 1){
-                                        echo '<span class="status f-online"></span>';
-                                    }else{
-                                        echo '<span class="status f-off"></span>';
-                                    }
+                                <?php
+                                if ($tabFriends['user_status'] == 1) {
+                                    echo '<span class="status f-online"></span>';
+                                } else {
+                                    echo '<span class="status f-off"></span>';
+                                }
                                 ?>
-                                
+
                             </figure>
                             <div class="friendz-meta">
                                 <a href="time-line.html"><?php echo $tabFriends['user_login']; ?></a>
@@ -95,19 +95,65 @@ function viewFriends($bdd, $request)
                 </ul>
             </div><!-- friends list sidebar -->
         </aside>
-</div>
+    </div>
+<?php
+}
+function like($bdd, $request, $id)
+{
+    $selectLike = $bdd->prepare($request);
+    $selectLike->execute();
+    $Likeexist = $selectLike->rowCount();
+    if($Likeexist > 0){
+?>
+    <div class="like">
+        <form action="" method="post">
+            <input type="checkbox" class="checkbox" id="<?php echo "checkbox" . $id; ?>" name="<?php echo "likecheckbox" . $id; ?>" checked/>
+            <label for="<?php echo "checkbox" . $id; ?>">
+                <svg class="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
+                    <g class="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
+                        <path d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z" class="heart" fill="#AAB8C2" />
+                        <circle id="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5" r="1.5" />
+                    </g>
+                </svg>
+            </label>
+
+        </form>
+
+
+    </div>
+    <?php }else{ ?>
+        <div class="like">
+        <form action="" method="post">
+            <input type="checkbox" class="checkbox" id="<?php echo "checkbox" . $id; ?>" name="<?php echo "dontlikecheckbox" . $id; ?>"/>
+            <label for="<?php echo "checkbox" . $id; ?>">
+                <svg class="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
+                    <g class="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
+                        <path d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z" class="heart" fill="#AAB8C2" />
+                        <circle id="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5" r="1.5" />
+                    </g>
+                </svg>
+            </label>
+
+        </form>
+
+
+    </div>
     <?php
-        }
 
-        
 
-        function viewTwoak($bdd, $request)
-        {
-            $selectTwoak = $bdd->prepare($request);
-            $selectTwoak->execute();
-            ?><?php
-                while ($TwoakSelect = $selectTwoak->fetch()) {
-                ?>
+    }
+    if(isset($_POST['dontlikecheckbox'.$id])){
+        echo "coucou";
+    }
+}
+function viewTwoak($bdd, $request)
+{
+    $selectTwoak = $bdd->prepare($request);
+    $selectTwoak->execute();
+    ?><?php
+        while ($TwoakSelect = $selectTwoak->fetch()) {
+        ?>
+
     <div class="central-meta item">
         <div class="user-post">
             <div class="friend-info">
@@ -135,10 +181,9 @@ function viewFriends($bdd, $request)
                                 </span>
                             </li>
                             <li>
-                                <span class="like" data-toggle="tooltip" title="like">
-                                    <i class="ti-heart"></i>
-                                    <ins><?php echo "0"; ?></ins>
-                                </span>
+
+                                <?php like($bdd, "SELECT `ID_Twoak`, `ID_User`, `Loak_NBLoak`, `ID_Loak` FROM `Loak` WHERE `ID_Twoak` = " . $TwoakSelect['ID_Twoak']." AND `ID_User` = ".$_SESSION['id'], $TwoakSelect['ID_Twoak']); ?>
+
                             </li>
 
                         </ul>
@@ -246,6 +291,7 @@ function viewFriends($bdd, $request)
 <?php
 
 
+
         }
 ?>
 
@@ -275,3 +321,4 @@ function banipfct(iptoban)
 }
 
 </script>
+>>>>>>> 9e9d5df8c2c8641208c6cb228574c2231b24913f

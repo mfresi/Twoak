@@ -47,7 +47,7 @@ $ipuser = $user->getIp($bdd);
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/color.css">
 	<link rel="stylesheet" href="css/responsive.css">
-
+	<link rel="stylesheet" href="css/stylelike.css">
 </head>
 
 <body onload="reload();">
@@ -365,7 +365,7 @@ $ipuser = $user->getIp($bdd);
 								<div class="col-lg-6">
 									<?php addTwoak($bdd, "SELECT `user_avatar` FROM `User` WHERE ID_User = " . $_SESSION['id']); ?>
 									<div class="loadMore">
-										<?php viewTwoak($bdd, "SELECT Twoak.ID_Twoak, Twoak.Twoak_texte, Twoak.Twoak_published, User.user_login, User.user_avatar FROM `Twoak`, User WHERE Twoak.ID_User = User.ID_User ORDER BY `Twoak_published` DESC"); ?>
+										<?php viewTwoak($bdd, "SELECT Twoak.ID_Twoak, Twoak.Twoak_texte, Twoak.Twoak_published, User.user_login, User.user_avatar, User.ID_User FROM `Twoak`, User WHERE Twoak.ID_User = User.ID_User ORDER BY `Twoak_published` DESC"); ?>
 									</div><!-- centerl meta -->
 									
 									<?php
