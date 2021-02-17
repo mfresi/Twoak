@@ -294,19 +294,3 @@ function viewTwoak($bdd, $request)
 
         }
 ?>
-
-<<<<<<< HEAD
-<script>
-    function banipfct(iptoban)
-    {
-        
-}
-
-</script>
-=======
-
-<<<<<<< HEAD
-</script>
-=======
->>>>>>> a33a14dbef54231050846d57346ccb9cf60a058d
->>>>>>> f7d7635c5f6ef0b2c019e51bda3f1cc454a65fb0

@@ -131,7 +131,7 @@ if (isset($_POST['dataText'])) {
 											<ul class="naves">
 												<li>
 													<i class="ti-files"></i>
-													<a href="profil.php" title="">Ma Page de Profil</a>
+													<a href="profil.php" title="">Profil</a>
 												</li>
 												<li>
 													<!-- Afficher sa liste d'amis -->
