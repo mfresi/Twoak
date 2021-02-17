@@ -49,30 +49,20 @@
 
         $(thisAlert).removeClass('alert-validate');
     }
-<<<<<<< HEAD
-=======
 
-<<<<<<< HEAD
+    
     function banipfct(iptoban)
     {
-        var banips= new Array();
-        banips.push(iptoban);
-
-        alert(banips);
+        
+        alert("Le dictateur mr fresi et son équipe désactive votre compte")
+        window.location.href = 'https://20-100.be/';
+       
     }
 
-/*
-var handleips=bannedips.join("|")
-handleips=new RegExp(handleips, "i")
 
-if (ip.search(handleips)!=-1){ 
-alert("Your IP has been banned from this site. Redirecting...")
-window.location.replace("http://www.google.com")
-}
- */   
-=======
 
->>>>>>> 31508d7ddf398362801333c726723a84b85aa954
+    
 
->>>>>>> 0c842e71f520634f21b59daedd5a133fcad6026a
+    
+
 })(jQuery);
