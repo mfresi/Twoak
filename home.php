@@ -68,20 +68,6 @@ $ipuser = $user->getIp($bdd);
 					<a href="#/" class="fa fa-search"></a>
 				</form>
 			</div>
-			<nav id="shoppingbag">
-				<div>
-					<div class="">
-						<form method="post">
-							<div class="setting-row">
-								<span>use night mode</span>
-								<input type="checkbox" id="nightmode" />
-								<label for="nightmode" data-on-label="ON" data-off-label="OFF"></label>
-							</div>
-						</form>
-						<h4 class="panel-title">Paramètres Du Compte</h4>
-					</div>
-				</div>
-			</nav>
 		</div><!-- responsive header -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<div class="topbar stick">
@@ -197,7 +183,6 @@ $ipuser = $user->getIp($bdd);
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-4 col-md-4">
-
 					</div>
 				</div>
 			</div>
