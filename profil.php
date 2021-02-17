@@ -8,6 +8,27 @@ if (isset($_GET['usr'])) {
 } else {
 	$id = $_SESSION['id'];
 }
+
+
+if (isset($_GET['follow']) && $_GET['follow'] == 1) {
+
+	$follow = $bdd->prepare('INSERT INTO `Follow`(`Fol_ID_Owner`, `Fol_ID_Follower`) VALUES (:Fol_ID_Owner,:Fol_ID_Follower)');
+
+	if ($follow->execute()) {
+		echo "true";
+	} else {
+		echo "true";
+	}
+}
+if (isset($_GET['unfollow'])) {
+	$unfollow = $bdd->prepare('DELETE FROM Follow WHERE `Fol_ID_Follower` = :Fol_ID_Follower AND `Fol_ID_Owner` = :Fol_ID_Owner LIMIT 1');
+	if ($unfollow->execute()) {
+		echo "false";
+	} else {
+		echo "false";
+	}
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -110,7 +131,7 @@ if (isset($_GET['usr'])) {
 					</span>
 					<!-- Bouton follow -->
 					<form action="" method="GET">
-						<button title="Follow" data-ripple="" id="butFollow" name="follow">Follow</button>
+						<button title="Follow" data-ripple="" id="butFollow" name="follow" value="1">Follow</button>
 					</form>
 					<!-- Bouton unfollow -->
 					<form action="" method="GET">
