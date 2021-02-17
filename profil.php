@@ -102,14 +102,13 @@ global $bdd;
 					<span>
 						<!-- Affiche le nombre de followers -->
 					</span>
+
 					<!-- Bouton follow -->
 					<form action="" method="GET">
 						<button title="Follow" data-ripple="" id="butFollow" name="follow">Follow</button>
 					</form>
 					<!-- Bouton unfollow -->
-					<form action="" method="GET">
-						<button title="Unfollow" data-ripple="" id="butUnfollow" name="unfollow">Unfollow</button>
-					</form>
+
 				</div>
 				<form method="POST" class="edit-phto" enctype="multipart/form-data">
 					<i class="fa fa-camera-retro"></i>
