@@ -3,10 +3,10 @@ include "database.php";
 include "function.php";
 global $bdd;
 
-if(isset($_GET['usr'])){
-	$id=$_GET['usr'];
-}else{
-	$id=$_SESSION['id'];
+if (isset($_GET['usr'])) {
+	$id = $_GET['usr'];
+} else {
+	$id = $_SESSION['id'];
 }
 ?>
 <!DOCTYPE html>
@@ -224,25 +224,25 @@ if(isset($_GET['usr'])){
 							<div class="timeline-info">
 								<ul>
 									<li class="admin-name">
-									<?php
-									if(isset($_GET['usr'])){
-										$sqlLogin 	= "SELECT `user_login` FROM `User` WHERE `User`.`ID_User` = ".$id."";
-										$reqz 		= $bdd->query($sqlLogin);
-										$logX 		= $reqz->fetch();
-										$log		= $logX['user_login'];
-									}else{
-										$log = $_SESSION['login'];
-									}
-									?>
+										<?php
+										if (isset($_GET['usr'])) {
+											$sqlLogin 	= "SELECT `user_login` FROM `User` WHERE `User`.`ID_User` = " . $id . "";
+											$reqz 		= $bdd->query($sqlLogin);
+											$logX 		= $reqz->fetch();
+											$log		= $logX['user_login'];
+										} else {
+											$log = $_SESSION['login'];
+										}
+										?>
 										<h5><?php echo $log ?></h5>
 										<span><?php echo "@" . $log . "" ?></span>
 									</li>
 									<li>
 										<!-- Page = Rt + post + like-->
 										<a class="active" href="#" title="" data-ripple="">Page</a>
-										<a class="" href="#" title="" data-ripple="">rt</a>
-										<a class="" href="post.php" title="" data-ripple="">posts</a>
-										<a class="" href="like.php" title="" data-ripple="">like</a>
+										<a class="" href="#" title="" data-ripple="">Retwoak(s)</a>
+										<a class="" href="post.php" title="" data-ripple="">Twoak(s)</a>
+										<a class="" href="like.php" title="" data-ripple="">Loak(s)</a>
 									</li>
 								</ul>
 							</div>
@@ -270,15 +270,6 @@ if(isset($_GET['usr'])){
 													<i class="ti-user"></i>
 													<a href="timeline-friends.html" title="">Amis</a>
 												</li>
-												<li>
-													<i class="ti-image"></i>
-													<a href="timeline-photos.html" title="">Images</a>
-												</li>
-												<li>
-													<i class="ti-video-camera"></i>
-													<a href="timeline-videos.html" title="">Videos</a>
-												</li>
-
 												<li>
 													<i class="ti-power-off"></i>
 													<a href="deconnexion.php" title="">Se Déconnecter</a>
@@ -442,7 +433,7 @@ if(isset($_GET['usr'])){
 
 									</div>
 								</div><!-- centerl meta -->
-								<?php																	
+								<?php
 								viewFriends($bdd, 'SELECT User.user_login, User.user_avatar FROM Follow, User WHERE Follow.Fol_ID_Follower = User.ID_User AND Follow.Fol_ID_Owner = ' . $id . '')
 								?>
 							</div>
