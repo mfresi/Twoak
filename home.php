@@ -12,27 +12,7 @@ if (isset($_POST['dataText'])) {
 <?php
 	echo "Twoak ajouté avec succès";
 }
-$user = new User();
-
-
-/*
-	setInterval(reload, 2500);
-
-	function reload() {
-		var container = document.getElementById("yourDiv");
-		var content = container.innerHTML;
-		container.innerHTML = content;
-
-		//this line is to watch the result in console , you can remove it later	
-		console.log("Refreshed");
-		
-	}
-*/
-	$ipuser = $user->getIp($bdd); //on recupere l'ip du user depuis la methode liée
 ?>
-<script>
-	banipfct(<?php echo "'".$ipuser."'" ?>); //on passe l'ip courante de l'utilisateur à la fonction js chargée de rediriger si l'ip est bannie
-</script>
 <!DOCTYPE html>
 <html lang="fr">
 
