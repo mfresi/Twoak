@@ -55,9 +55,7 @@ if (isset($_POST['dataText'])) {
 			<div class="logo">
 				<a title="" href="index.php"><img src="images/logo.png" alt=""></a>
 			</div>
-
 			<div class="top-area">
-
 				<ul class="setting-area">
 					<li>
 						<script>
@@ -135,8 +133,14 @@ if (isset($_POST['dataText'])) {
 													<i class="ti-files"></i>
 													<a href="profil.php" title="">Ma Page de Profil</a>
 												</li>
-												<i class="ti-power-off"></i>
-												<a href="deconnexion.php" title="">Se Déconnecter</a>
+												<li>
+													<!-- Afficher sa liste d'amis -->
+													<i class="ti-user"></i>
+													<a href="" title="">Amis</a>
+												</li>
+												<li>
+													<i class="ti-power-off"></i>
+													<a href="deconnexion.php" title="">Se Déconnecter</a>
 												</li>
 											</ul>
 										</div><!-- Shortcuts -->
@@ -159,7 +163,6 @@ if (isset($_POST['dataText'])) {
 					</div>
 				</div>
 		</section>
-
 		<footer>
 			<div class="container">
 				<div class="row">
