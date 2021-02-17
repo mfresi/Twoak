@@ -25,13 +25,19 @@ if (isset($_GET["user"])) {
 		$searchUser = $bdd->query($sql);
 		$req = $searchUser->fetchALL();
         ?> 
+
         <table style="text-align:left;background:white;">
-        <th>Utilisateurs :</th>
+            <th>Utilisateurs :</th>
         <?php
         foreach($req as $r){
-            echo "<tr><td>".$r['user_login'],$r['ID_User']."</td></tr>";
+            $usr[$y] = $r['user_login'];
+            echo "<tr><td><a href='profil.php?usr=".$r['ID_User']."'>".$r['user_login']."</a></td></tr>";
+            $y++;
         }
-        ?></table><?php
+        ?>
+        </table>
+        <button type="submit">Valider</button>
+        <?php
 }?>
 	</div>
 </li>
