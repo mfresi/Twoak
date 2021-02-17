@@ -9,9 +9,11 @@ try {
 if (!$_SESSION['login']) {
     header('Location : login.php');
 }
+
 $message = new user();
 $friend  = new user();
 $idDestination = $_GET['id'];
+
 $localtime = getdate(date("U"));
 $Date = "$localtime[year]-$localtime[mon]-$localtime[mday] $localtime[hours]:$localtime[minutes]:$localtime[seconds]";
 
@@ -26,6 +28,7 @@ if ($_POST['envoyer']) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,8 +41,7 @@ if ($_POST['envoyer']) {
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/color.css">
     <link rel="stylesheet" href="css/responsive.css">
-
-
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
 </head>
 
 <body>
@@ -54,17 +56,15 @@ if ($_POST['envoyer']) {
                         $tabFriends = $friend->getFriendsMSg($_SESSION['id'], $bdd);
                         ?>
                     </ul>
-                    <div  class="peoples-mesg-box">
+                    <div class="peoples-mesg-box">
                         <div class="conversation-head">
                             <div id="mp">
-                                <?php
-            
-                                $message->DisplayPrivateMsgSend($_SESSION['id'], $idDestination, $bdd);
-                                ?>
+                                <?php $message->DisplayPrivateMsgSend($_SESSION['id'], $idDestination, $bdd); ?>
                             </div>
                         </div>
                         <form method="POST" action="">
                             <p> <textarea name="message"> </textarea> </p>
+                            <button id="reloader">Recharger</button>
                             <input type="submit" name="envoyer">
                         </form>
                     </div>
@@ -76,3 +76,11 @@ if ($_POST['envoyer']) {
 </body>
 
 </html>
+
+<script>
+
+    $("#reloader").click(function(){
+        $("#mp").load(" #mp");
+        console.log("bien reload");
+    });
+</script>
