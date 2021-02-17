@@ -19,6 +19,25 @@ if (isset($_POST['dataText'])) {
 $afficher = new user();
 
 ?>
+<?php
+	$user = new user();
+	// Verification de l'ip machine de la personne pour savoir si elle est bannie ou pas.
+	$ipMachine = $_SERVER['REMOTE_ADDR'];
+	$tabIpBan = array();
+	$tailleTab = count($tabIpBan);
+	$user->getIpBan($bdd);
+	
+	for ($i = 0;$i < $tailleTab;$i++)
+	{
+		if ($ipMachine == $tabIpBan[$i])
+		{
+			?><script>
+				alert("Le Dictateur et son équipe vous informe que votre compte est PD");
+        		window.location.href = "http://192.168.64.53/Alex/Twoak/banni.php"
+			</script><?php
+		}
+	}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -141,7 +160,7 @@ $afficher = new user();
 											<ul class="naves">
 												<li>
 													<i class="ti-files"></i>
-													<a href="profil.php" title="">Ma Page de Profil</a>
+													<a href="profil.php" title="">Profil</a>
 												</li>
 												<li>
 													<!-- Afficher sa liste d'amis -->
