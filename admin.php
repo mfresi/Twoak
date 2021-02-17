@@ -26,11 +26,4 @@ else
 {
     echo "Selectionner une IP à bannir";
 }
-
- $user->getipban($bdd)
-
 ?>
-
-<script>
-	banipfct(<?php echo "'".$ipuser."'" ?>); //on passe l'ip courante de l'utilisateur à la fonction js chargée de rediriger si l'ip est bannie
-</script>

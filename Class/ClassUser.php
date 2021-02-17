@@ -151,7 +151,6 @@ class user
         }
     }
 
-
     public function getFriendsMSg($idUser, $bdd)
     {
         $request = $bdd->query('SELECT User.user_login, User.ID_User FROM Follow, User WHERE Follow.Fol_ID_Follower = User.ID_User AND Follow.Fol_ID_Owner = ' . $idUser . '');
@@ -166,10 +165,9 @@ class user
         OR `ID_Sender` = ' . $idUserSource . ' AND `ID_Receiver` = ' . $idUserDest . ' AND User.ID_User = Message.ID_Sender ORDER BY Date');
 
         while ($tabMessage = $request->fetch()) {
-            echo "<p>" . $tabMessage['user_login'] . ":" . $tabMessage['texte'] . "</p>";
+            echo "<p>" . $tabMessage['user_login'] . " : " . $tabMessage['texte'] . "</p>";
         }
     }
-
 
     public function getAllUsers($bdd)
     {

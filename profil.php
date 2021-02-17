@@ -102,13 +102,14 @@ global $bdd;
 					<span>
 						<!-- Affiche le nombre de followers -->
 					</span>
+
 					<!-- Bouton follow -->
 					<form action="" method="GET">
 						<button title="Follow" data-ripple="" id="butFollow" name="follow">Follow</button>
 					</form>
 					<!-- Bouton unfollow -->
 					<form action="" method="GET">
-						<button title="Unfollow" data-ripple="" id="butUnfollow" name="unfollow">Unfollow</button>
+						<button title="UnFollow" data-ripple="" id="butUnFollow" name="Unfollow">Unfollow</button>
 					</form>
 				</div>
 				<form method="POST" class="edit-phto" enctype="multipart/form-data">
@@ -248,21 +249,13 @@ global $bdd;
 											<ul class="naves">
 												<li>
 													<i class="ti-files"></i>
-													<a href="index.php" title="">Actus</a>
+													<a href="index.php" title="">Fil d'Actualités</a>
 												</li>
 												<li>
+													<!-- Afficher sa liste d'amis -->
 													<i class="ti-user"></i>
-													<a href="timeline-friends.html" title="">Amis</a>
+													<a href="" title="">Amis</a>
 												</li>
-												<li>
-													<i class="ti-image"></i>
-													<a href="timeline-photos.html" title="">Images</a>
-												</li>
-												<li>
-													<i class="ti-video-camera"></i>
-													<a href="timeline-videos.html" title="">Videos</a>
-												</li>
-
 												<li>
 													<i class="ti-power-off"></i>
 													<a href="deconnexion.php" title="">Se Déconnecter</a>
@@ -283,69 +276,32 @@ global $bdd;
 														<img src="images/resources/friend-avatar11.jpg" alt="">
 													</figure>
 													<div class="friend-name">
-														<ins><a href="time-line.html" title="">Sarah grey</a></ins>
-														<span>published: june,2 2018 19:PM</span>
+														<ins><a href="time-line.html" title="">
+																<!-- Afficher le nom du gars qui tweet -->
+															</a></ins>
+														<span>
+															<!-- Afficher la date du tweet -->
+														</span>
 													</div>
 													<div class="post-meta">
 														<img src="images/resources/user-post7.jpg" alt="">
 														<div class="we-video-info">
 															<ul>
 																<li>
-																	<span class="views" data-toggle="tooltip" title="views">
-																		<i class="fa fa-eye"></i>
-																		<ins>1.2k</ins>
-																	</span>
-																</li>
-																<li>
 																	<span class="comment" data-toggle="tooltip" title="Comments">
 																		<i class="fa fa-comments-o"></i>
-																		<ins>52</ins>
+																		<ins>
+																			<!-- Afficher le nombre de comentaire -->
+																		</ins>
 																	</span>
 																</li>
 																<li>
 																	<span class="like" data-toggle="tooltip" title="like">
 																		<i class="ti-heart"></i>
-																		<ins>2.2k</ins>
+																		<ins>
+																			<!-- Afficher le nombre de like -->
+																		</ins>
 																	</span>
-																</li>
-																<li>
-																	<span class="dislike" data-toggle="tooltip" title="dislike">
-																		<i class="ti-heart-broken"></i>
-																		<ins>200</ins>
-																	</span>
-																</li>
-																<li class="social-media">
-																	<div class="menu">
-																		<div class="btn trigger"><i class="fa fa-share-alt"></i></div>
-																		<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
-																		</div>
-																		<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
-																		</div>
-																		<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
-																		</div>
-																		<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
-																		</div>
-																		<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
-																		</div>
-																		<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
-																			</div>
-																		</div>
-																		<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
-																			</div>
-																		</div>
-																		<div class="rotater">
-																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
-																			</div>
-																		</div>
-
-																	</div>
 																</li>
 															</ul>
 														</div>
@@ -401,20 +357,7 @@ global $bdd;
 																	<div class="add-smiles">
 																		<span class="em em-expressionless" title="add icon"></span>
 																	</div>
-																	<div class="smiles-bunch">
-																		<i class="em em---1"></i>
-																		<i class="em em-smiley"></i>
-																		<i class="em em-anguished"></i>
-																		<i class="em em-laughing"></i>
-																		<i class="em em-angry"></i>
-																		<i class="em em-astonished"></i>
-																		<i class="em em-blush"></i>
-																		<i class="em em-disappointed"></i>
-																		<i class="em em-worried"></i>
-																		<i class="em em-kissing_heart"></i>
-																		<i class="em em-rage"></i>
-																		<i class="em em-stuck_out_tongue"></i>
-																	</div>
+
 																	<button type="submit"></button>
 																</form>
 															</div>
