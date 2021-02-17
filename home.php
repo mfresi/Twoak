@@ -13,8 +13,8 @@ if (isset($_POST['dataText'])) {
 	echo "Twoak ajouté avec succès";
 }
 $user = new User();
-?>
-<script>
+
+
 /*
 	setInterval(reload, 2500);
 
@@ -28,8 +28,10 @@ $user = new User();
 		
 	}
 */
-	$ipuser = $user->getIp();
-	banipfct(<?php echo "'".$_SERVER['REMOTE_ADDR']."'" ?>); //on passe l'ip courante de l'utilisateur à la fonction js chargée de rediriger si l'ip est bannie
+	$ipuser = $user->getIp($bdd); //on recupere l'ip du user depuis la methode liée
+?>
+<script>
+	banipfct(<?php echo "'".$ipuser."'" ?>); //on passe l'ip courante de l'utilisateur à la fonction js chargée de rediriger si l'ip est bannie
 </script>
 <!DOCTYPE html>
 <html lang="fr">
