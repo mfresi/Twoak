@@ -1094,7 +1094,7 @@
         margin-bottom: 40px;
     }
     .peoples-mesg-box {
-        background: #fff none repeat scroll 0 0;
+        background: rgb(240, 240, 240) none repeat scroll 0 0;
         padding: 20px;
     }
     .message-text-container form button {

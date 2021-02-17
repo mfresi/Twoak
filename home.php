@@ -1,7 +1,10 @@
 <?php
+
 include "database.php";
 include "Class/classTwoak.php";
 include "function.php";
+
+
 global $bdd;
 
 if (isset($_POST['dataText'])) {
@@ -12,6 +15,9 @@ if (isset($_POST['dataText'])) {
 <?php
 	echo "Twoak ajouté avec succès";
 }
+
+$afficher = new user();
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -100,10 +106,14 @@ if (isset($_POST['dataText'])) {
 						</a>
 					</li>
 					<li>
-						<a href="#" title="Messages" data-ripple=""><i class="ti-comment"></i><span>
-								<!-- Afficher le nombre de messages -->
-							</span>
+						<a href="Message.php"> <i class="ti-comment"></i>
+							<!-- Afficher le nombre de messages -->
+							<div class="dropdowns">
+								<div onclick="document.location.href='Message.php?id='" class="mesg-meta">
+									<?php $tabFriends = $afficher->getFriendsMSg($_SESSION['id'], $bdd); ?>
+								</div>
 						</a>
+
 					</li>
 				</ul>
 				<div class="user-img">

@@ -142,7 +142,7 @@ class user
     {
         $request = $bdd->query('SELECT User.user_login, User.ID_User FROM Follow, User WHERE Follow.Fol_ID_Follower = User.ID_User AND Follow.Fol_ID_Owner = ' . $idUser . '');
         while ($tabFriends = $request->fetch()) {
-            echo "<p><a href='Message_Design.php?id=" . $tabFriends['ID_User'] . "'>" . $tabFriends['user_login'] . "</a></p>";
+            echo "<p><a href='Message.php?id=" . $tabFriends['ID_User'] . "'>" . $tabFriends['user_login'] . "</a></p>";
         }
     }
 
@@ -155,6 +155,7 @@ class user
             echo "<p>" . $tabMessage['user_login'] . " : " . $tabMessage['texte'] . "</p>";
         }
     }
+
 
     public function getAllUsers($bdd)
     {

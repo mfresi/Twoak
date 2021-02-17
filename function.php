@@ -296,7 +296,4 @@ function viewTwoak($bdd, $request)
 ?>
 
 
-<<<<<<< HEAD
 </script>
-=======
->>>>>>> a33a14dbef54231050846d57346ccb9cf60a058d
