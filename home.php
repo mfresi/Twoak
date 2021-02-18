@@ -25,7 +25,7 @@ $afficher = new user();
 	$ipMachine = $_SERVER['REMOTE_ADDR'];
 	$tabIpBan = array();
 	$tailleTab = count($tabIpBan);
-	$user->getIpBan($bdd);
+	
 	
 	for ($i = 0;$i < $tailleTab;$i++)
 	{
@@ -57,6 +57,7 @@ $afficher = new user();
 </head>
 
 <body onload="reload();">
+<button id="btn-theme">Toggle dark mode</button>
 	<!--<div class="se-pre-con"></div>-->
 	<div class="theme-layout">
 		<div class="responsive-header">
@@ -76,8 +77,8 @@ $afficher = new user();
 			</div>
 		</div><!-- responsive header -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<div class="topbar stick">
-			<div class="logo">
+		<div class="topbar stick" id="top-area">
+			<div class="logo" id="logo">
 				<a title="" href="index.php"><img src="images/logo.png" alt=""></a>
 			</div>
 			<div class="top-area">
@@ -135,7 +136,7 @@ $afficher = new user();
 
 					</li>
 				</ul>
-				<div class="user-img">
+				<div class="user-img" id="top-area">
 					<img src="images/resources/admin.jpg" alt="">
 					<span class="status f-online"></span>
 					<div class="user-setting">
@@ -148,14 +149,14 @@ $afficher = new user();
 			</div>
 		</div><!-- topbar -->
 		<section>
-			<div class="gap gray-bg">
+			<div class="gap gray-bg" id="Barre">
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="row" id="page-contents">
 								<div class="col-lg-3">
 									<aside class="sidebar static">
-										<div class="widget">
+										<div class="widget" id="center-area">
 											<h4 class="widget-title">Raccourcis</h4>
 											<ul class="naves">
 												<li>
@@ -176,7 +177,7 @@ $afficher = new user();
 
 									</aside>
 								</div><!-- sidebar -->
-								<div class="col-lg-6">
+								<div class="col-lg-6" id="top-area">
 									<?php addTwoak($bdd, "SELECT `user_avatar` FROM `User` WHERE ID_User = " . $_SESSION['id']); ?>
 									<div class="loadMore">
 										<?php viewTwoak($bdd, "SELECT Twoak.ID_Twoak, Twoak.Twoak_texte, Twoak.Twoak_published, User.user_login, User.user_avatar, User.ID_User FROM `Twoak`, User WHERE Twoak.ID_User = User.ID_User ORDER BY `Twoak_published` DESC"); ?>
@@ -216,5 +217,30 @@ $afficher = new user();
 	<script src="js/script.js"></script>
 	<script src="js/map-init.js"></script>
 </body>
-
 </html>
+
+
+
+
+<script>
+
+let header = document.getElementById("top-area");
+let center = document.getElementById("center-area");
+let button = document.getElementById("btn-theme");
+let logo = document.getElementById("logo");
+let page = document.getElementById("page-contents");
+let barre = document.getElementById("barre");
+
+button.addEventListener("click", function(){
+
+	header.style.background = "black";
+	center.style.background = "black";
+	logo.style.background = "black";
+	page.style.background = "black";
+	barre.style.background = "black";
+
+})
+
+
+
+</script>
