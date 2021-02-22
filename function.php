@@ -33,7 +33,7 @@ function addTwoak($bdd, $request)
     $selectAvatar->execute();
     $tabAvatar = $selectAvatar->fetch();
 ?>
-    <div class="central-meta">
+    <div class="central-meta" id ="Twoak">
         <h3>Fil d'Actualité</h3>
         <br>
         <div class="new-postbox">
@@ -70,7 +70,7 @@ function viewFriends($bdd, $request)
 
     <div class="col-lg-3">
         <aside class="sidebar static">
-            <div class="widget friend-list stick-widget">
+            <div class="widget friend-list stick-widget" id="Friend">
                 <h4 class="widget-title">Amis</h4>
                 <div id="searchDir"></div>
                 <ul id="people-list" class="friendz-list">
@@ -155,8 +155,8 @@ function viewTwoak($bdd, $request)
         ?>
 
     <div class="central-meta item">
-        <div class="user-post">
-            <div class="friend-info">
+        <div class="user-post" id="newTwoak"> 
+            <div class="friend-info"> 
                 <figure>
                     <img src="<?php echo $TwoakSelect['user_avatar']; ?>" alt="">
                 </figure>

@@ -1,9 +1,7 @@
 <?php
-
 include "database.php";
 include "Class/classTwoak.php";
 include "function.php";
-
 
 global $bdd;
 
@@ -149,16 +147,16 @@ $afficher = new user();
 			</div>
 		</div><!-- topbar -->
 		<section>
-			<div class="gap gray-bg" id="Barre">
+		<div class="gap gray-bg" id="center-area">
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="row" id="page-contents">
 								<div class="col-lg-3">
 									<aside class="sidebar static">
-										<div class="widget" id="center-area">
+										<div class="widget" id="raccourcis">
 											<h4 class="widget-title">Raccourcis</h4>
-											<ul class="naves">
+											<ul class="naves" id="texte">
 												<li>
 													<i class="ti-files"></i>
 													<a href="profil.php" title="">Profil</a>
@@ -177,9 +175,9 @@ $afficher = new user();
 
 									</aside>
 								</div><!-- sidebar -->
-								<div class="col-lg-6" id="top-area">
+								<div class="col-lg-6">
 									<?php addTwoak($bdd, "SELECT `user_avatar` FROM `User` WHERE ID_User = " . $_SESSION['id']); ?>
-									<div class="loadMore">
+									<div class="loadMore" id="newTwoak">
 										<?php viewTwoak($bdd, "SELECT Twoak.ID_Twoak, Twoak.Twoak_texte, Twoak.Twoak_published, User.user_login, User.user_avatar, User.ID_User FROM `Twoak`, User WHERE Twoak.ID_User = User.ID_User ORDER BY `Twoak_published` DESC"); ?>
 									</div><!-- centerl meta -->
 
@@ -193,7 +191,7 @@ $afficher = new user();
 					</div>
 				</div>
 		</section>
-		<footer>
+		<footer id="footer">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-4 col-md-4">
@@ -202,16 +200,16 @@ $afficher = new user();
 			</div>
 		</footer><!-- footer -->
 	</div>
-	<div class="side-panel">
+	<div class="side-panel" id="sidepanel">
 		<h4 class="panel-title">Paramètres Généraux</h4>
-		<form method="post">
 			<div class="setting-row">
 				<span>Mode Nuit</span>
 				<input type="checkbox" id="nightmode1" />
 				<label for="nightmode1" data-on-label="ON" data-off-label="OFF"></label>
 			</div>
-		</form>
-	</div><!-- side panel -->
+	</div>
+	
+	<!-- side panel -->
 	<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 	<script src="js/main.min.js"></script>
 	<script src="js/script.js"></script>
@@ -226,20 +224,32 @@ $afficher = new user();
 
 let header = document.getElementById("top-area");
 let center = document.getElementById("center-area");
-let button = document.getElementById("btn-theme");
+let button = document.getElementById("nightmode1");
 let logo = document.getElementById("logo");
 let page = document.getElementById("page-contents");
-let barre = document.getElementById("barre");
+let Twoak = document.getElementById("Twoak");
+let Friend = document.getElementById("Friend");
+let newTwoak = document.getElementById("newTwoak");
+let raccourcis = document.getElementById("raccourcis");
+let footer = document.getElementById("footer");
+let sidepanel = document.getElementById("sidepanel");
 
 button.addEventListener("click", function(){
 
-	header.style.background = "black";
-	center.style.background = "black";
-	logo.style.background = "black";
-	page.style.background = "black";
-	barre.style.background = "black";
+	header.style.background = "#01031a";
+	center.style.background = "#01031a";
+	logo.style.background = "#01031a";
+	page.style.background = "#01031a";
+	Twoak.style.background = "#01031a";
+	Friend.style.background ="#01031a";
+	newTwoak.style.background ="#01031a";
+	raccourcis.style.background ="#01031a";
+	footer.style.background ="#01031a";
+	sidepanel.style.background ="#01031a";
 
-})
+
+}
+)
 
 
 
