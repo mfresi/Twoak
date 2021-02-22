@@ -55,7 +55,6 @@ $afficher = new user();
 </head>
 
 <body onload="reload();">
-<button id="btn-theme">Toggle dark mode</button>
 	<!--<div class="se-pre-con"></div>-->
 	<div class="theme-layout">
 		<div class="responsive-header">
