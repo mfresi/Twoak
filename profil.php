@@ -11,24 +11,17 @@ if (isset($_GET['usr'])) {
 	$id = $_SESSION['id'];
 }
 
+$requete = $bdd->prepare("SELECT `Fol_ID_Owner`, `Fol_ID_Follower` FROM `Follow` WHERE 1");
+$requete->execute();
+if ($requete->rowCount() == 1) {
 
-if (isset($_GET['follow']) && $_GET['follow'] == 1) {
-
-	$follow = $bdd->prepare('INSERT INTO `Follow`(`Fol_ID_Owner`, `Fol_ID_Follower`) VALUES (:Fol_ID_Owner,:Fol_ID_Follower)');
-
-	if ($follow->execute()) {
-		echo "true";
-	} else {
-		echo "true";
-	}
-}
-if (isset($_GET['unfollow'])) {
+	$follow = $bdd->prepare('INSERT INTO `Follow`(`Fol_ID_Owner`, `Fol_ID_Follower`) VALUES :Fol_ID_Owner, :Fol_ID_Follower LIMIT 1');
+	$follow->execute();
+	echo "true";
+} else {
 	$unfollow = $bdd->prepare('DELETE FROM Follow WHERE `Fol_ID_Follower` = :Fol_ID_Follower AND `Fol_ID_Owner` = :Fol_ID_Owner LIMIT 1');
-	if ($unfollow->execute()) {
-		echo "false";
-	} else {
-		echo "false";
-	}
+	$unfollow->execute();
+	echo "false";
 }
 
 ?>
@@ -95,10 +88,10 @@ if (isset($_GET['unfollow'])) {
 					</li>
 					<li>
 						<a href="Message.php" title="Messages" data-ripple="">
-						<div onclick="document.location.href='Message.php?id='" class="mesg-meta">
-							<i class="ti-comment"></i><span>
-								<!-- Afficher le nombre de messages-->
-							</span>
+							<div onclick="document.location.href='Message.php?id='" class="mesg-meta">
+								<i class="ti-comment"></i><span>
+									<!-- Afficher le nombre de messages-->
+								</span>
 						</a>
 					</li>
 				</ul>
@@ -109,7 +102,7 @@ if (isset($_GET['unfollow'])) {
 						<a href="#" title=""><i class="ti-user"></i>Afficher Profil</a>
 						<a href="#" title=""><i class="ti-settings"></i>Paramètres du compte </a><!-- modifier mdp et mail-->
 						<a href="deconnexion.php" title=""><i class="ti-power-off"></i>Se Déconnecter</a>
-						
+
 					</div>
 				</div>
 				<span class="ti-menu main-menu" data-ripple=""></span>
@@ -336,7 +329,7 @@ if (isset($_GET['unfollow'])) {
 																</li>
 																<li class="social-media">
 																	<div class="menu">
-																		
+
 																		<div class="rotater">
 																			<div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
 																		</div>
@@ -376,45 +369,45 @@ if (isset($_GET['unfollow'])) {
 												</div>
 												<div class="coment-area">
 													<ul class="we-comet">
-														
-															<div class="comet-avatar">
-
-															</div>
-															
-																<div class="coment-head">
-
-																</div>
-
-														</li>
-														<li>
-															<div class="comet-avatar">
-
-															</div>
-															
-																<div class="coment-head">
-
-
-																</div>
-
-
-																</p>
-															</div>
-														</li>
-														<li>
-
-														</li>
 
 														<div class="comet-avatar">
 
 														</div>
-														<div class="post-comt-box">
 
-															<div class="add-smiles">
+														<div class="coment-head">
 
+														</div>
 
-																</form>
+														</li>
+														<li>
+															<div class="comet-avatar">
+
 															</div>
-															</li>
+
+															<div class="coment-head">
+
+
+															</div>
+
+
+															</p>
+												</div>
+												</li>
+												<li>
+
+												</li>
+
+												<div class="comet-avatar">
+
+												</div>
+												<div class="post-comt-box">
+
+													<div class="add-smiles">
+
+
+														</form>
+													</div>
+													</li>
 													</ul>
 												</div>
 											</div>
