@@ -106,8 +106,8 @@ function like($bdd, $request, $id)
     if($Likeexist > 0){
 ?>
     <div class="like">
-        <form action="" method="post">
-            <input type="checkbox" class="checkbox" id="<?php echo "checkbox" . $id; ?>" name="<?php echo "likecheckbox" . $id; ?>" checked/>
+        
+            <input type="checkbox" class="checkbox" id="<?php echo "checkbox" . $id; ?>" name="<?php echo "likecheckbox" . $id; ?>" onclick="test(<?php echo $id; ?>)" checked/>
             <label for="<?php echo "checkbox" . $id; ?>">
                 <svg class="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
                     <g class="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
@@ -117,14 +117,14 @@ function like($bdd, $request, $id)
                 </svg>
             </label>
 
-        </form>
+        
 
 
     </div>
     <?php }else{ ?>
         <div class="like">
-        <form action="" method="post">
-            <input type="checkbox" class="checkbox" id="<?php echo "checkbox" . $id; ?>" name="<?php echo "dontlikecheckbox" . $id; ?>"/>
+        
+            <input type="checkbox" class="checkbox" id="<?php echo "checkbox" . $id; ?>" name="<?php echo "dontlikecheckbox" . $id; ?>" onclick="test(<?php echo $id; ?>)"/>
             <label for="<?php echo "checkbox" . $id; ?>">
                 <svg class="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
                     <g class="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
@@ -134,7 +134,7 @@ function like($bdd, $request, $id)
                 </svg>
             </label>
 
-        </form>
+       
 
 
     </div>
