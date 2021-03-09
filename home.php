@@ -144,7 +144,7 @@ $afficher = new user();
 				</div>
 				<span class="ti-menu main-menu" data-ripple=""></span>
 			</div>
-		</div><!-- topbar -->
+		</div><!-- SideBar Left -->
 		<section>
 		<div class="gap gray-bg" id="center-area">
 				<div class="container-fluid">
@@ -197,7 +197,7 @@ $afficher = new user();
 					</div>
 				</div>
 			</div>
-		</footer><!-- footer -->
+		</footer><!-- SideBar -->
 	</div>
 	<div class="side-panel" id="sidepanel">
 		<h4 class="panel-title">Paramètres Généraux</h4>
