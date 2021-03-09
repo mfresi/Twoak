@@ -24,6 +24,9 @@ class user
     {
         try {
             $bdd = new PDO('mysql:host=localhost; dbname=Twoak; charset=utf8', 'root', 'root');
+            $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            // mode de fetch par défaut : FETCH_ASSOC / FETCH_OBJ / FETCH_BOTH
+            $bdd->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch (Exception $erreur) {
             echo 'Erreur : ' . $erreur->getMessage();
         }
@@ -40,15 +43,30 @@ class user
     }
     //Fonction de connexion a Twoak
     public function connexion($login, $password, $bdd)
-    {  // Romain FLEMAL
-        // Vérifie si l'identifiant et le mdp sont les même que dans la bdd
+    {  
+            try{
+                $req = $bdd->prepare("SELECT `user_login`, `user_password`, `ID_User` FROM `User` WHERE `User`.`user_login` = :username");
+                $req->bindParam('username', $login, PDO::PARAM_STR);
+                $req->execute();
+                $result = $req->fetch(PDO::FETCH_ASSOC);
+    
+                if(password_verify($password,$result['user_password']) == TRUE){
+                    $_SESSION['login'] = $result['user_login'];
+                    $_SESSION['id']    = $result['ID_User'];
+                    header("Location:index.php");
+                }else{
+                    echo "<div style='color:white'>Identifiants incorrects !</div>";
+                }
+            }catch(Exception $err){
+                echo "Erreur ! ".$err->getMessage();
+            }
+
+        /*
         $request = $bdd->prepare("SELECT * FROM User WHERE user_login = ? AND user_password = ?");
-        // mise dans un tableau
         $request->execute([$login, $password]);
         $userexist = $request->rowCount();
         if ($userexist == 1) {
             $userinfo = $request->fetch();
-            // Verification avec la base de données
             $_SESSION['login'] = $userinfo['user_login'];
             $_SESSION['id'] = $userinfo['ID_User'];
             $connect = $bdd->prepare("UPDATE User SET user_status = 1 WHERE ID_User = " . $userinfo['ID_User']);
@@ -60,7 +78,7 @@ class user
         } else {
 
             echo "Identifiant ou mot de passe incorrect ! ";
-        }
+        } */
     }
     //fonction qui permet de recupéré les ip en base a chaque connexion
     public function getIp($bdd)
