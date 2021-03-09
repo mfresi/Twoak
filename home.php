@@ -18,24 +18,22 @@ $afficher = new user();
 
 ?>
 <?php
-	$user = new user();
-	// Verification de l'ip machine de la personne pour savoir si elle est bannie ou pas.
-	$ipMachine = $_SERVER['REMOTE_ADDR'];
-	$tabIpBan = array();
-	$tailleTab = count($tabIpBan);
-	
-	
-	for ($i = 0;$i < $tailleTab;$i++)
-	{
-		if ($ipMachine == $tabIpBan[$i])
-		{
-			?><script>
-				alert("Le Dictateur et son équipe vous informe que votre compte est PD");
-        		window.location.href = "http://192.168.64.53/Alex/Twoak/banni.php"
-			</script><?php
-		}
-	}
-?>
+$user = new user();
+// Verification de l'ip machine de la personne pour savoir si elle est bannie ou pas.
+$ipMachine = $_SERVER['REMOTE_ADDR'];
+$tabIpBan = array();
+$tailleTab = count($tabIpBan);
+
+
+for ($i = 0; $i < $tailleTab; $i++) {
+	if ($ipMachine == $tabIpBan[$i]) {
+?><script>
+			alert("Le Dictateur et son équipe vous informe que votre compte est PD");
+			window.location.href = "http://192.168.64.53/Alex/Twoak/banni.php"
+		</script><?php
+				}
+			}
+					?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -52,6 +50,30 @@ $afficher = new user();
 	<link rel="stylesheet" href="css/color.css">
 	<link rel="stylesheet" href="css/responsive.css">
 	<link rel="stylesheet" href="css/stylelike.css">
+	<script>
+		var a;
+
+		function test(data) {
+
+			var newlike = {
+				a: data
+			}
+			var tab = new FormData();
+
+			tab.append("json", JSON.stringify(newlike));
+
+			fetch("like.php", {
+					method: "POST",
+					body: tab
+				})
+				.then(function(res) {
+					return res.json();
+				})
+				.then(function(tab) {
+					console.log(tab)
+				})
+		}
+	</script>
 </head>
 
 <body onload="reload();">
@@ -146,7 +168,7 @@ $afficher = new user();
 			</div>
 		</div><!-- SideBar Left -->
 		<section>
-		<div class="gap gray-bg" id="center-area">
+			<div class="gap gray-bg" id="center-area">
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-lg-12">
@@ -201,55 +223,51 @@ $afficher = new user();
 	</div>
 	<div class="side-panel" id="sidepanel">
 		<h4 class="panel-title">Paramètres Généraux</h4>
-			<div class="setting-row">
-				<span>Mode Nuit</span>
-				<input type="checkbox" id="nightmode1" />
-				<label for="nightmode1" data-on-label="ON" data-off-label="OFF"></label>
-			</div>
+		<div class="setting-row">
+			<span>Mode Nuit</span>
+			<input type="checkbox" id="nightmode1" />
+			<label for="nightmode1" data-on-label="ON" data-off-label="OFF"></label>
+		</div>
 	</div>
-	
+
 	<!-- side panel -->
 	<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 	<script src="js/main.min.js"></script>
 	<script src="js/script.js"></script>
 	<script src="js/map-init.js"></script>
 </body>
+
 </html>
 
 
 
 
 <script>
+	let header = document.getElementById("top-area");
+	let center = document.getElementById("center-area");
+	let button = document.getElementById("nightmode1");
+	let logo = document.getElementById("logo");
+	let page = document.getElementById("page-contents");
+	let Twoak = document.getElementById("Twoak");
+	let Friend = document.getElementById("Friend");
+	let newTwoak = document.getElementById("newTwoak");
+	let raccourcis = document.getElementById("raccourcis");
+	let footer = document.getElementById("footer");
+	let sidepanel = document.getElementById("sidepanel");
 
-let header = document.getElementById("top-area");
-let center = document.getElementById("center-area");
-let button = document.getElementById("nightmode1");
-let logo = document.getElementById("logo");
-let page = document.getElementById("page-contents");
-let Twoak = document.getElementById("Twoak");
-let Friend = document.getElementById("Friend");
-let newTwoak = document.getElementById("newTwoak");
-let raccourcis = document.getElementById("raccourcis");
-let footer = document.getElementById("footer");
-let sidepanel = document.getElementById("sidepanel");
+	button.addEventListener("click", function() {
 
-button.addEventListener("click", function(){
-
-	header.style.background = "#01031a";
-	center.style.background = "#01031a";
-	logo.style.background = "#01031a";
-	page.style.background = "#01031a";
-	Twoak.style.background = "#01031a";
-	Friend.style.background ="#01031a";
-	newTwoak.style.background ="#01031a";
-	raccourcis.style.background ="#01031a";
-	footer.style.background ="#01031a";
-	sidepanel.style.background ="#01031a";
-
-
-}
-)
+		header.style.background = "#01031a";
+		center.style.background = "#01031a";
+		logo.style.background = "#01031a";
+		page.style.background = "#01031a";
+		Twoak.style.background = "#01031a";
+		Friend.style.background = "#01031a";
+		newTwoak.style.background = "#01031a";
+		raccourcis.style.background = "#01031a";
+		footer.style.background = "#01031a";
+		sidepanel.style.background = "#01031a";
 
 
-
+	})
 </script>

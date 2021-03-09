@@ -33,7 +33,7 @@ function addTwoak($bdd, $request)
     $selectAvatar->execute();
     $tabAvatar = $selectAvatar->fetch();
 ?>
-    <div class="central-meta" id ="Twoak">
+    <div class="central-meta" id="Twoak">
         <h3>Fil d'Actualité</h3>
         <br>
         <div class="new-postbox">
@@ -96,35 +96,21 @@ function viewFriends($bdd, $request)
             </div><!-- friends list sidebar -->
         </aside>
     </div>
-<?php
+    <?php
 }
 function like($bdd, $request, $id)
 {
     $selectLike = $bdd->prepare($request);
     $selectLike->execute();
     $Likeexist = $selectLike->rowCount();
-    if($Likeexist > 0){
-?>
-    <div class="like">
-        <form action="" method="post">
-            <input type="checkbox" class="checkbox" id="<?php echo "checkbox" . $id; ?>" name="<?php echo "likecheckbox" . $id; ?>" checked/>
-            <label for="<?php echo "checkbox" . $id; ?>">
-                <svg class="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
-                    <g class="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
-                        <path d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z" class="heart" fill="#AAB8C2" />
-                        <circle id="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5" r="1.5" />
-                    </g>
-                </svg>
-            </label>
+    $selectecho = $bdd->prepare("SELECT *  FROM `Loak` WHERE `ID_Twoak` = " . $id);
+    $selectecho->execute();
 
-        </form>
-
-
-    </div>
-    <?php }else{ ?>
+    if ($Likeexist == 1) {
+    ?>
         <div class="like">
-        <form action="" method="post">
-            <input type="checkbox" class="checkbox" id="<?php echo "checkbox" . $id; ?>" name="<?php echo "dontlikecheckbox" . $id; ?>"/>
+
+            <input type="checkbox" class="checkbox" id="<?php echo "checkbox" . $id; ?>" name="<?php echo "likecheckbox" . $id; ?>" onclick="test(<?php echo $id; ?>)" checked />
             <label for="<?php echo "checkbox" . $id; ?>">
                 <svg class="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
                     <g class="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
@@ -134,63 +120,82 @@ function like($bdd, $request, $id)
                 </svg>
             </label>
 
-        </form>
+            <?php
+            if ($selectecho->rowCount() > 0) {
+                echo $selectecho->rowCount();
+            }  ?>
 
 
-    </div>
-    <?php
+        </div>
+    <?php } else { ?>
+        <div class="like">
+
+            <input type="checkbox" class="checkbox" id="<?php echo "checkbox" . $id; ?>" name="<?php echo "dontlikecheckbox" . $id; ?>" onclick="test(<?php echo $id; ?>)" />
+            <label for="<?php echo "checkbox" . $id; ?>">
+                <svg class="heart-svg" viewBox="467 392 58 57" xmlns="http://www.w3.org/2000/svg">
+                    <g class="Group" fill="none" fill-rule="evenodd" transform="translate(467 392)">
+                        <path d="M29.144 20.773c-.063-.13-4.227-8.67-11.44-2.59C7.63 28.795 28.94 43.256 29.143 43.394c.204-.138 21.513-14.6 11.44-25.213-7.214-6.08-11.377 2.46-11.44 2.59z" class="heart" fill="#AAB8C2" />
+                        <circle id="main-circ" fill="#E2264D" opacity="0" cx="29.5" cy="29.5" r="1.5" />
+                    </g>
+                </svg>
+            </label>
 
 
-    }
-    if(isset($_POST['dontlikecheckbox'.$id])){
-        echo "coucou";
+            <?php
+            if ($selectecho->rowCount() > 0) {
+                echo $selectecho->rowCount();
+            }  ?>
+
+        </div>
+        <?php
+
     }
 }
 function viewTwoak($bdd, $request)
 {
     $selectTwoak = $bdd->prepare($request);
     $selectTwoak->execute();
-    ?><?php
+        ?><?php
         while ($TwoakSelect = $selectTwoak->fetch()) {
         ?>
 
-    <div class="central-meta item">
-        <div class="user-post" id="newTwoak"> 
-            <div class="friend-info"> 
-                <figure>
-                    <img src="<?php echo $TwoakSelect['user_avatar']; ?>" alt="">
-                </figure>
-                <div class="friend-name">
-                    <ins><a href="time-line.html" title=""><?php echo $TwoakSelect['user_login']; ?></a></ins>
-                    <span>publié : <?php echo $TwoakSelect['Twoak_published']; ?></span>
-                </div>
-                <div class="post-meta">
-                    <!--<img src="images/resources/user-post.jpg" alt=""> -->
-
-                    <div class="description">
-                        <p>
-                            <?php echo $TwoakSelect['Twoak_texte']; ?>
-                        </p>
+        <div class="central-meta item">
+            <div class="user-post" id="newTwoak">
+                <div class="friend-info">
+                    <figure>
+                        <img src="<?php echo $TwoakSelect['user_avatar']; ?>" alt="">
+                    </figure>
+                    <div class="friend-name">
+                        <ins><a href="time-line.html" title=""><?php echo $TwoakSelect['user_login']; ?></a></ins>
+                        <span>publié : <?php echo $TwoakSelect['Twoak_published']; ?></span>
                     </div>
-                    <div class="we-video-info">
-                        <ul>
-                            <li>
-                                <span class="comment" data-toggle="tooltip" title="Comments">
-                                    <i class="fa fa-comments-o"></i>
-                                    <ins><?php echo "0"; ?></ins>
-                                </span>
-                            </li>
-                            <li>
+                    <div class="post-meta">
+                        <!--<img src="images/resources/user-post.jpg" alt=""> -->
 
-                                <?php like($bdd, "SELECT `ID_Twoak`, `ID_User`, `Loak_NBLoak`, `ID_Loak` FROM `Loak` WHERE `ID_Twoak` = " . $TwoakSelect['ID_Twoak']." AND `ID_User` = ".$_SESSION['id'], $TwoakSelect['ID_Twoak']); ?>
+                        <div class="description">
+                            <p>
+                                <?php echo $TwoakSelect['Twoak_texte']; ?>
+                            </p>
+                        </div>
+                        <div class="we-video-info">
+                            <ul>
+                                <li>
+                                    <span class="comment" data-toggle="tooltip" title="Comments">
+                                        <i class="fa fa-comments-o"></i>
+                                        <ins><?php echo "0"; ?></ins>
+                                    </span>
+                                </li>
+                                <li>
 
-                            </li>
+                                    <?php like($bdd, "SELECT *  FROM `Loak` WHERE `ID_Twoak` = " . $TwoakSelect['ID_Twoak'] . " AND `ID_User` = " . $_SESSION['id'], $TwoakSelect['ID_Twoak']); ?>
 
-                        </ul>
+                                </li>
+
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!--
+                <!--
 <div class="coment-area">
     <ul class="we-comet">
         <li>
@@ -282,12 +287,12 @@ function viewTwoak($bdd, $request)
         </li>
     </ul>
 </div> -->
+            </div>
         </div>
+    <?php }
+    ?>
     </div>
-<?php }
-?>
-</div>
-        
+
 <?php
-        }
+}
 ?>
