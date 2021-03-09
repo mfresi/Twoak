@@ -28,7 +28,6 @@ if ($_POST['envoyer']) {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,6 +45,7 @@ if ($_POST['envoyer']) {
 
 <body>
     <div class="col-lg-6">
+    
         <div class="central-meta">
             <div class="messages">
                 <h5 class="f-title"><i class="ti-bell"></i>Tous vos messages </i>
@@ -65,10 +65,14 @@ if ($_POST['envoyer']) {
                         <form method="POST" action="">
                             <p> <textarea name="message"> </textarea> </p>
                             <button id="reloader">Recharger</button>
+                          
                             <input type="submit" name="envoyer">
                         </form>
                     </div>
+               
+                    <a href="index.php"> Accueil </a>
                 </div>
+                
             </div>
         </div>
     </div>
