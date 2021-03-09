@@ -260,7 +260,7 @@ if ($requete->rowCount() == 1) {
 										<a class="active" href="#" title="" data-ripple="">Page</a>
 										<a class="" href="#" title="" data-ripple="">Retwoak(s)</a>
 										<a class="" href="post.php" title="" data-ripple="">Twoak(s)</a>
-										<a class="" href="like.php" title="" data-ripple="">Loak(s)</a>
+										<a class="" href="#" title="" data-ripple="">Loak(s)</a>
 									</li>
 								</ul>
 							</div>
