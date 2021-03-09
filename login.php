@@ -31,7 +31,7 @@
                         <img src="images/img-01.png" alt="IMG">
                     </div>
 
-                    <form class="login100-form validate-form " method="POST">
+                    <form action="" class="login100-form validate-form " method="POST">
                         <span class="login100-form-title">
                             Bienvenue sur Twoak
                         </span>
@@ -52,7 +52,7 @@
                             </span>
                         </div>
                         <?php // Tout les champs du formulaire
-                        if (isset($_POST['login']) && isset($_POST['password'])) {
+                        if (!empty($_POST['login']) && !empty($_POST['password'])) {
                             //Le mot de passe est correct, on crée l'objet user
                             $coUser = new user();
                             // Méthode de connexion dans class user*
